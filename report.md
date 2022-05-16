@@ -12,7 +12,7 @@
 
 <p></p>
 
-### This table is updated every metting
+### This table is updated every meeting
 #### Last update: (date)
 
 | Task Number | State    | Responsible | Description                             |
