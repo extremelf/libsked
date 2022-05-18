@@ -5,8 +5,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.sql.Timestamp
 
-@Entity(tableName = "user_reservation")
-class Reservation (
+@Entity(tableName = "schedule")
+class Schedule (
     @PrimaryKey
     @ColumnInfo(name = "id")
     val id: Int,

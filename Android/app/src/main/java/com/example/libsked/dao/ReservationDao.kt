@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ReservationDao {
-    @Query("SELECT * FROM reservation")
+    @Query("SELECT * FROM user_reservation")
     fun getReservations(): Flow<List<Reservation>>
 
     @Insert(onConflict = IGNORE)
@@ -19,6 +19,6 @@ interface ReservationDao {
     @Delete
     suspend fun delete(reservation: Reservation)
 
-    @Query("DELETE FROM reservation")
+    @Query("DELETE FROM user_reservation")
     suspend fun deleteAll()
 }
