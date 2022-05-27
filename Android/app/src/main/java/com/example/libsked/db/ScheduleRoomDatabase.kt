@@ -9,6 +9,8 @@ import com.example.libsked.dao.ScheduleDao
 import com.example.libsked.model.Schedule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import java.sql.Timestamp
+import java.util.*
 
 @Database(entities = [Schedule::class], version = 1, exportSchema = false)
 abstract class ScheduleRoomDatabase: RoomDatabase() {
@@ -32,6 +34,15 @@ abstract class ScheduleRoomDatabase: RoomDatabase() {
 
         suspend fun populateDatabase(scheduleDao: ScheduleDao){
             scheduleDao.deleteAll()
+
+            val schedule = Schedule(1, 3,
+                Timestamp(2022,5,27,10,30,0,0),
+                Timestamp(2022,5,27,11,0,0,0))
+            scheduleDao.insert(schedule)
+            val schedule2 = Schedule(1, 1,
+                Timestamp(2022,5,27,10,30,0,0),
+                Timestamp(2022,5,27,11,0,0,0))
+            scheduleDao.insert(schedule2)
         }
     }
 
