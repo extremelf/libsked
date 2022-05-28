@@ -13,8 +13,8 @@ interface ReservationDao {
     @Query("SELECT * FROM user_reservation")
     fun getReservations(): Flow<List<Reservation>>
 
-    @Insert(onConflict = IGNORE)
-    suspend fun insert(reservation: Reservation)
+    @Insert(onConflict = IGNORE, entity = Reservation::class)
+    fun insert(reservation: Reservation)
 
     @Delete
     suspend fun delete(reservation: Reservation)

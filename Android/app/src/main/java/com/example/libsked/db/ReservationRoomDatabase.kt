@@ -1,9 +1,7 @@
 package com.example.libsked.db
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.libsked.dao.ReservationDao
 import com.example.libsked.model.Reservation
@@ -11,6 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Database(entities = [Reservation::class], version = 1, exportSchema = false)
+@TypeConverters(Converters::class)
 abstract class ReservationRoomDatabase: RoomDatabase() {
     abstract fun ReservationDao(): ReservationDao
 
