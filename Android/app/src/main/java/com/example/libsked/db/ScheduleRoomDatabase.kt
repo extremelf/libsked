@@ -1,18 +1,32 @@
 package com.example.libsked.db
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.libsked.dao.ScheduleDao
 import com.example.libsked.model.Schedule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.sql.Timestamp
+
 import java.util.*
 
+class Converters {
+    @TypeConverter
+    fun fromTimestamp(value: Long?):
+            java.sql.Date {
+        return java.sql.Date(value ?: 0)
+    }
+
+    @TypeConverter
+    fun dateToTimestamp(date: java.sql.Date?)
+            : Long {
+        return date?.getTime() ?: 0
+    }
+}
+
 @Database(entities = [Schedule::class], version = 1, exportSchema = false)
+@TypeConverters(Converters::class)
 abstract class ScheduleRoomDatabase: RoomDatabase() {
     abstract fun ScheduleDao(): ScheduleDao
 
@@ -35,14 +49,18 @@ abstract class ScheduleRoomDatabase: RoomDatabase() {
         suspend fun populateDatabase(scheduleDao: ScheduleDao){
             scheduleDao.deleteAll()
 
-            val schedule = Schedule(1, 3,
-                Timestamp(2022,5,27,10,30,0,0),
-                Timestamp(2022,5,27,11,0,0,0))
+            var schedule = Schedule(1, 2,
+                Timestamp.valueOf("2022-5-28 10:30:0.0").time,
+                Timestamp.valueOf("2022-5-28 18:0:0.0").time)
             scheduleDao.insert(schedule)
-            val schedule2 = Schedule(1, 1,
-                Timestamp(2022,5,27,10,30,0,0),
-                Timestamp(2022,5,27,11,0,0,0))
-            scheduleDao.insert(schedule2)
+            schedule = Schedule(2, 3,
+                Timestamp.valueOf("2022-5-28 10:30:0.0").time,
+                Timestamp.valueOf("2022-5-28 18:0:0.0").time)
+            scheduleDao.insert(schedule)
+            schedule = Schedule(3, 4,
+                Timestamp.valueOf("2022-5-28 10:30:0.0").time,
+                Timestamp.valueOf("2022-5-28 18:0:0.0").time)
+            scheduleDao.insert(schedule)
         }
     }
 

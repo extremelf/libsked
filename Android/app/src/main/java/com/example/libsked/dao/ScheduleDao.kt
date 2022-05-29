@@ -16,8 +16,11 @@ interface ScheduleDao {
     @Query("SELECT * FROM schedule")
     fun getAllSchedules(): Flow<List<Schedule>>
 
-    @Query("SELECT CASE WHEN EXISTS(SELECT * FROM schedule WHERE NOW() BETWEEN start AND `end` AND room_id = :roomId) THEN 1 ELSE 0 end")
-    fun roomOccupied(roomId: Int): Boolean
+    /*@Query("SELECT CASE WHEN EXISTS(SELECT * FROM schedule WHERE NOW() BETWEEN start AND `end` AND room_id = :roomId) THEN 1 ELSE 0 end")
+    fun roomOccupied(roomId: Int): Boolean*/
+
+    @Query("SELECT DISTINCT(room_id) as rooms FROM schedule")
+    fun getRooms(): Flow<List<Int>>
 
     @Insert(onConflict = IGNORE)
     suspend fun insert(schedule: Schedule)
