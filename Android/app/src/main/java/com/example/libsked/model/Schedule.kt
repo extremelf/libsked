@@ -5,9 +5,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.example.libsked.db.Converters
-import java.sql.Timestamp
-import com.example.libsked.model.RoomTable
+import com.example.libsked.db.ScheduleRoomDatabase.Converters
 
 @Entity(
     tableName = "room_schedule", foreignKeys = [ForeignKey(
@@ -27,7 +25,8 @@ class Schedule(
     @ColumnInfo(name = "id")
     val id: Int = 0,
     @ColumnInfo(name = "creation_timestamp")
-    val creation_timestamp: Timestamp,
+    @TypeConverters(Converters::class)
+    val creation_timestamp: Long,
     @ColumnInfo(name = "person_id")
     val personId: Int,
     @ColumnInfo(name = "room_id")
