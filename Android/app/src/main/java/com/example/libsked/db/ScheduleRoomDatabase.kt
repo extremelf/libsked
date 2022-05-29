@@ -5,53 +5,100 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.libsked.dao.PersonDao
+import com.example.libsked.dao.RoomDao
 import com.example.libsked.dao.ScheduleDao
+import com.example.libsked.model.Person
+import com.example.libsked.model.RoomTable
 import com.example.libsked.model.Schedule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.sql.Timestamp
 import java.util.*
 
-@Database(entities = [Schedule::class], version = 1, exportSchema = false)
-abstract class ScheduleRoomDatabase: RoomDatabase() {
+@Database(
+    entities = [Schedule::class, RoomTable::class, Person::class],
+    version = 1,
+    exportSchema = false
+)
+abstract class ScheduleRoomDatabase : RoomDatabase() {
     abstract fun ScheduleDao(): ScheduleDao
+    abstract fun PersonDao(): PersonDao
+    abstract fun RoomDao(): RoomDao
 
     private class ScheduleDatabaseCallback(
         private val scope: CoroutineScope
     ) : RoomDatabase.Callback() {
-        override fun onOpen(db: SupportSQLiteDatabase){
+        override fun onOpen(db: SupportSQLiteDatabase) {
             super.onOpen(db)
         }
 
-        override fun onCreate(db: SupportSQLiteDatabase){
+        override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
             INSTANCE?.let { database ->
-                scope.launch{
-                    populateDatabase(database.ScheduleDao())
+                scope.launch {
+                    populateDatabase(
+                        database.ScheduleDao(),
+                        database.RoomDao(),
+                        database.PersonDao()
+                    )
                 }
             }
         }
 
-        suspend fun populateDatabase(scheduleDao: ScheduleDao){
+        suspend fun populateDatabase(
+            scheduleDao: ScheduleDao,
+            roomDao: RoomDao,
+            personDao: PersonDao
+        ) {
             scheduleDao.deleteAll()
+            personDao.deleteAll()
+            roomDao.deleteAll()
 
-            val schedule = Schedule(1, 3,
-                Timestamp(2022,5,27,10,30,0,0),
-                Timestamp(2022,5,27,11,0,0,0))
+            val room1 = RoomTable(
+                roomNumber = 1,
+                chairsNumber = 4,
+                socketsNumber = 3,
+                description = "Small room"
+            )
+            val room2 = RoomTable(
+                roomNumber = 2,
+                chairsNumber = 15,
+                socketsNumber = 9,
+                description = "Big room"
+            )
+            val room1Id = roomDao.insert(room1)
+            val room2Id = roomDao.insert(room2)
+
+            val person = Person(name = "Luís", cc = 12313123)
+
+            val personId = personDao.insert(person)
+
+            val schedule = Schedule(
+                creation_timestamp = Timestamp(Calendar.getInstance().timeInMillis),
+                roomId = room1Id.toInt(),
+                personId = personId.toInt(),
+                start = Timestamp(2022, 5, 27, 10, 30, 0, 0),
+                end = Timestamp(2022, 5, 27, 11, 0, 0, 0)
+            )
             scheduleDao.insert(schedule)
-            val schedule2 = Schedule(1, 1,
-                Timestamp(2022,5,27,10,30,0,0),
-                Timestamp(2022,5,27,11,0,0,0))
+            val schedule2 = Schedule(
+                creation_timestamp = Timestamp(Calendar.getInstance().timeInMillis),
+                roomId = room2Id.toInt(),
+                personId = personId.toInt(),
+                start = Timestamp(2022, 5, 27, 10, 30, 0, 0),
+                end = Timestamp(2022, 5, 27, 11, 0, 0, 0)
+            )
             scheduleDao.insert(schedule2)
         }
     }
 
-    companion object{
+    companion object {
         @Volatile
         private var INSTANCE: ScheduleRoomDatabase? = null
 
-        fun getDatabase(context: Context, scope:CoroutineScope): ScheduleRoomDatabase{
-            return INSTANCE ?: synchronized(this){
+        fun getDatabase(context: Context, scope: CoroutineScope): ScheduleRoomDatabase {
+            return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     ScheduleRoomDatabase::class.java,

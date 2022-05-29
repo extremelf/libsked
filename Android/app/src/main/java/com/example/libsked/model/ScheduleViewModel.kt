@@ -11,10 +11,6 @@ class ScheduleViewModel(private val repository: ScheduleRepository) : ViewModel(
         return repository.getRoomSchedule(roomId).asLiveData()
     }
 
-    fun isRoomOccupied(roomId: Int): Boolean{
-        return repository.isRoomOccupied(roomId)
-    }
-
     fun insert(schedule: Schedule) = viewModelScope.launch {
         repository.insert(schedule)
     }

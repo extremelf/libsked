@@ -10,13 +10,13 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ScheduleDao {
-    @Query("SELECT * FROM schedule WHERE room_id = :roomId")
+    @Query("SELECT * FROM room_schedule WHERE room_id = :roomId")
     fun getRoomSchedule(roomId: Int): Flow<List<Schedule>>
 
-    @Query("SELECT * FROM schedule")
+    @Query("SELECT * FROM room_schedule")
     fun getAllSchedules(): Flow<List<Schedule>>
 
-    @Query("SELECT CASE WHEN EXISTS(SELECT * FROM schedule WHERE NOW() BETWEEN start AND `end` AND room_id = :roomId) THEN 1 ELSE 0 end")
+    @Query("SELECT CASE WHEN EXISTS(SELECT * FROM room_schedule WHERE NOW() BETWEEN start AND `end` AND room_id = :roomId) THEN 1 ELSE 0 end")
     fun roomOccupied(roomId: Int): Boolean
 
     @Insert(onConflict = IGNORE)
@@ -25,6 +25,6 @@ interface ScheduleDao {
     @Delete
     suspend fun delete(schedule: Schedule)
 
-    @Query("DELETE FROM schedule")
+    @Query("DELETE FROM room_schedule")
     suspend fun deleteAll()
 }
