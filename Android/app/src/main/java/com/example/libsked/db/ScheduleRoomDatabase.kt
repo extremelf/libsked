@@ -14,6 +14,7 @@ import com.example.libsked.model.Schedule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.sql.Timestamp
+
 import java.util.*
 
 @Database(
@@ -22,6 +23,23 @@ import java.util.*
     exportSchema = false
 )
 abstract class ScheduleRoomDatabase : RoomDatabase() {
+class Converters {
+    @TypeConverter
+    fun fromTimestamp(value: Long?):
+            java.sql.Date {
+        return java.sql.Date(value ?: 0)
+    }
+
+    @TypeConverter
+    fun dateToTimestamp(date: java.sql.Date?)
+            : Long {
+        return date?.getTime() ?: 0
+    }
+}
+
+@Database(entities = [Schedule::class], version = 1, exportSchema = false)
+@TypeConverters(Converters::class)
+abstract class ScheduleRoomDatabase: RoomDatabase() {
     abstract fun ScheduleDao(): ScheduleDao
     abstract fun PersonDao(): PersonDao
     abstract fun RoomDao(): RoomDao
@@ -81,7 +99,16 @@ abstract class ScheduleRoomDatabase : RoomDatabase() {
                 start = Timestamp(2022, 5, 27, 10, 30, 0, 0),
                 end = Timestamp(2022, 5, 27, 11, 0, 0, 0)
             )
+            /*
+            var schedule = Schedule(1, 2,
+                Timestamp.valueOf("2022-5-28 10:30:0.0").time,
+                Timestamp.valueOf("2022-5-28 18:0:0.0").time)
             scheduleDao.insert(schedule)
+            schedule = Schedule(2, 3,
+                Timestamp.valueOf("2022-5-28 10:30:0.0").time,
+                Timestamp.valueOf("2022-5-28 18:0:0.0").time)
+            scheduleDao.insert(schedule)
+             */
             val schedule2 = Schedule(
                 creation_timestamp = Timestamp(Calendar.getInstance().timeInMillis),
                 roomId = room2Id.toInt(),

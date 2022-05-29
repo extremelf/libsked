@@ -1,11 +1,27 @@
 package com.example.libsked.fragments
 
+import android.app.Activity
+import android.graphics.*
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import com.example.libsked.R
+import com.example.libsked.appplication.ScheduleApplication
+import com.example.libsked.model.ScheduleViewModel
+import com.example.libsked.model.ScheduleViewModelFactory
+import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.fragment_main.view.*
+import java.sql.Timestamp
+import java.time.Instant
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeFormatter.ISO_INSTANT
+import java.util.*
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +37,9 @@ class MainFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private val scheduleViewModel: ScheduleViewModel by activityViewModels {
+        ScheduleViewModelFactory((requireActivity().application as ScheduleApplication).repository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +55,36 @@ class MainFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_main, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        scheduleViewModel.getRooms()
+            .observe(viewLifecycleOwner, Observer { item ->
+                for (roomNumber in item) {
+                    scheduleViewModel.getRoomSchedule(roomNumber)
+                        .observe(viewLifecycleOwner, Observer { data ->
+                            for (schedule in data) {
+                                val isOccupied =
+                                    schedule.start < Calendar.getInstance().timeInMillis && Calendar.getInstance().timeInMillis < schedule.end
+                                val viewId = "room${roomNumber}"
+                                val viewResId =
+                                    resources.getIdentifier(
+                                        viewId,
+                                        "id",
+                                        requireActivity().packageName
+                                    )
+                                val room = requireView().findViewById<TextView>(viewResId)
+                                if (isOccupied) {
+                                    room.background.setColorFilter(
+                                        Color.RED,
+                                        PorterDuff.Mode.SRC_IN
+                                    )
+                                }
+                            }
+                        })
+                }
+            })
     }
 
     companion object {

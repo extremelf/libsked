@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.example.libsked.db.Converters
 import java.sql.Timestamp
 import com.example.libsked.model.RoomTable
 
@@ -31,7 +33,9 @@ class Schedule(
     @ColumnInfo(name = "room_id")
     val roomId: Int,
     @ColumnInfo(name = "start")
-    val start: Timestamp,
+    @TypeConverters(Converters::class)
+    val start: Long,
     @ColumnInfo(name = "end")
-    val end: Timestamp
+    @TypeConverters(Converters::class)
+    val end: Long
 )
