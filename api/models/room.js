@@ -1,4 +1,4 @@
-class Schedule {
+class Room {
     constructor(id, name, room_number, chairs_number,sockets_number,description ) {
             this.id = id;
             this.name = name;
@@ -9,4 +9,4 @@ class Schedule {
     }
 }
 
-module.exports = Schedule;
+module.exports = Room;

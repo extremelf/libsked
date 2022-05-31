@@ -76,6 +76,7 @@ const deleteRoomSchedule = async (req, res, next) => {
     }
 }
 
+
 module.exports = {
     addRoomSchedule,
     getAll,
