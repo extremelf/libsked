@@ -24,9 +24,11 @@ const getAll = async (req, res, next) => {
             data.forEach(doc => {
                 const schedule = new Schedule(
                     doc.id,
-                    doc.data().room_id,
-                    doc.data().start,
-                    doc.data().end
+                    doc.data().name,
+                    doc.data().room_number,
+                    doc.data().chairs_number,
+                    doc.data().sockets_number,
+                    doc.data().description
                 );
                 schedulesArray.push(schedule);
             });
