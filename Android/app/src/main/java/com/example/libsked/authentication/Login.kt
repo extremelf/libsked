@@ -1,4 +1,4 @@
-package com.example.libsked
+package com.example.libsked.authentication
 
 
 import android.content.Intent
@@ -8,6 +8,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.example.libsked.MainActivity
+import com.example.libsked.R
 import com.google.firebase.auth.FirebaseAuth
 
 class Login : AppCompatActivity() {
