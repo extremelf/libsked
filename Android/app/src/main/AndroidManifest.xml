@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Libsked">
         <activity
+            android:name=".forgotPassword"
+            android:exported="false" />
+        <activity
             android:name=".register"
             android:exported="false" />
         <activity
