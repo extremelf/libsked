@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.example.libsked.db.ScheduleRoomDatabase.Converters
+import com.example.libsked.db.Converters
 
 @Entity(
     tableName = "room_schedule", foreignKeys = [ForeignKey(

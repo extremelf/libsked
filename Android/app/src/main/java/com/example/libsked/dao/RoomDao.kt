@@ -10,8 +10,8 @@ interface RoomDao {
     @Query("SELECT * FROM room WHERE id = :id")
     fun getRoom(id: Int): Flow<RoomTable>
 
-    @Query("SELECT * FROM room")
-    fun getAllRooms(): Flow<List<RoomTable>>
+    @Query("SELECT room_number FROM room")
+    fun getRoomNumbers(): Flow<List<Int>>
 
     @Insert(onConflict = IGNORE)
     suspend fun insert(room: RoomTable): Long

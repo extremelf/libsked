@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -62,20 +63,29 @@ class MainFragment : Fragment() {
         scheduleViewModel.getRooms()
             .observe(viewLifecycleOwner, Observer { item ->
                 for (roomNumber in item) {
+                    val viewId = "room${roomNumber}"
+                    val viewResId =
+                        resources.getIdentifier(
+                            viewId,
+                            "id",
+                            requireActivity().packageName
+                        )
+                    val room: TextView = requireView().findViewById<TextView>(viewResId)
+                    room.background.setColorFilter(
+                        Color.GREEN,
+                        PorterDuff.Mode.SRC_IN)
+                    room.setOnClickListener {
+                        Toast.makeText(requireContext(), false.toString(), Toast.LENGTH_SHORT).show()
+                    }
                     scheduleViewModel.getRoomSchedule(roomNumber)
                         .observe(viewLifecycleOwner, Observer { data ->
                             for (schedule in data) {
                                 val isOccupied =
                                     schedule.start < Calendar.getInstance().timeInMillis && Calendar.getInstance().timeInMillis < schedule.end
-                                val viewId = "room${roomNumber}"
-                                val viewResId =
-                                    resources.getIdentifier(
-                                        viewId,
-                                        "id",
-                                        requireActivity().packageName
-                                    )
-                                val room = requireView().findViewById<TextView>(viewResId)
                                 if (isOccupied) {
+                                    room.setOnClickListener {
+                                        Toast.makeText(requireContext(), isOccupied.toString(), Toast.LENGTH_SHORT).show()
+                                    }
                                     room.background.setColorFilter(
                                         Color.RED,
                                         PorterDuff.Mode.SRC_IN
