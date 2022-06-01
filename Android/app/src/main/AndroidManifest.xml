@@ -11,13 +11,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Libsked">
         <activity
-            android:name=".authentication.register"
+            android:name=".forgotPassword"
+            android:exported="false" />
+        <activity
+            android:name=".register"
             android:exported="false" />
         <activity
             android:name=".Appointments"
             android:exported="false" />
         <activity
-            android:name=".authentication.Login"
+            android:name=".Login"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
