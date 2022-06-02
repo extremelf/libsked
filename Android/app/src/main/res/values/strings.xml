@@ -7,4 +7,5 @@
     <string name="new_password_confirm">New Password Confirm:</string>
     <string name="new_password">New Password:</string>
     <string name="old_password">Old Password:</string>
+    <string name="room_x">Room X</string>
 </resources>
