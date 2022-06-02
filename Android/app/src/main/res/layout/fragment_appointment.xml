@@ -5,16 +5,43 @@
     android:layout_height="match_parent"
     tools:context=".fragments.AppointmentFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="THIS IS FUCKING APPOINTMENTS " />
+
 
     <CalendarView
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
         android:id="@+id/calendarView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@drawable/square"
+        />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/calendarView"
+        android:layout_centerInParent="true"
+        android:layout_margin="50dp"
+        android:background="@drawable/square"
+        >
+
+
+    <TextView
+        android:id="@+id/notes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/square"
+        android:text="Hello?"
+        />
+
+        <!-- aqui secalhar agora levava um recycler view, � algo a ser visto com todos, plus preciso ver um componente que meio que
+        leva mais que uma text view?
+        -->
+
+
+    </LinearLayout>
+
+
 
 </RelativeLayout>
