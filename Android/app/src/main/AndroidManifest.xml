@@ -3,6 +3,7 @@
     package="com.example.libsked">
 
     <application
+        android:name=".appplication.ScheduleApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -13,16 +14,16 @@
             android:name=".RoomSchedule"
             android:exported="false" />
         <activity
-            android:name=".forgotPassword"
+            android:name=".authentication.forgotPassword"
             android:exported="false" />
         <activity
-            android:name=".register"
+            android:name=".authentication.register"
             android:exported="false" />
         <activity
             android:name=".Appointments"
             android:exported="false" />
         <activity
-            android:name=".Login"
+            android:name=".authentication.Login"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

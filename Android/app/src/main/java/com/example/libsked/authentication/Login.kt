@@ -1,4 +1,5 @@
-package com.example.libsked
+package com.example.libsked.authentication
+
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +8,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.example.libsked.MainActivity
+import com.example.libsked.R
 import com.google.firebase.auth.FirebaseAuth
 
 class Login : AppCompatActivity() {
@@ -14,7 +17,7 @@ class Login : AppCompatActivity() {
     lateinit var Email: EditText
     private lateinit var Pass: EditText
     lateinit var btnLogin: Button
-    private lateinit var RedirectSignUp: TextView
+    private lateinit var RedirectRegister: TextView
 
     // Criar FireBaseAuth
     lateinit var auth: FirebaseAuth
@@ -27,7 +30,7 @@ class Login : AppCompatActivity() {
         Email = findViewById(R.id.et_email)
         Pass = findViewById(R.id.et_password)
         btnLogin = findViewById(R.id.btn_login)
-        RedirectSignUp = findViewById(R.id.tv_create_account)
+        RedirectRegister = findViewById(R.id.tv_create_account)
 
         // Inicializar Auth
         auth = FirebaseAuth.getInstance()
@@ -36,12 +39,12 @@ class Login : AppCompatActivity() {
             login()
         }
 
-       /* RedirectSignUp.setOnClickListener {
-            val intent = Intent(this, Register::class.java)
+       RedirectRegister.setOnClickListener {
+            val intent = Intent(this, register::class.java)
             startActivity(intent)
             // finish() para acabar a atividade
             finish()
-        } */
+        }
     }
 
     private fun login() {
@@ -55,6 +58,10 @@ class Login : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(this) {
             if (it.isSuccessful) {
                 Toast.makeText(this, "Successfully Logged In!", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                // finish() para acabar a atividade
+                finish()
             } else
                 Toast.makeText(this, "Log In failed! ", Toast.LENGTH_SHORT).show()
         }
