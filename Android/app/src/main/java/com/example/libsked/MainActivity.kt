@@ -1,13 +1,20 @@
 package com.example.libsked
 
+import android.graphics.Color
+import android.graphics.PorterDuff
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
+import com.example.libsked.appplication.ScheduleApplication
 import com.example.libsked.fragments.AccountFragment
 import com.example.libsked.fragments.AppointmentFragment
 import com.example.libsked.fragments.MainFragment
 import com.example.libsked.fragments.QrCodeFragment
+import com.example.libsked.model.ScheduleViewModel
+import com.example.libsked.model.ScheduleViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -40,5 +47,8 @@ class MainActivity : AppCompatActivity() {
             transaction.replace(R.id.frame_layout, fragment)
             transaction.commit()
         }
+    }
+    public val scheduleViewModel: ScheduleViewModel by viewModels{
+        ScheduleViewModelFactory((application as ScheduleApplication).repository)
     }
 }
