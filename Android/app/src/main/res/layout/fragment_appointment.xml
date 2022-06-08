@@ -1,20 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.AppointmentFragment">
+    tools:context=".Appointments"
+    android:background="#F2A900">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="THIS IS FUCKING APPOINTMENTS " />
 
-    <CalendarView
-        android:layout_centerHorizontal="true"
-        android:id="@+id/calendarView"
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/bg_calen"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
+
+        <CalendarView
+            android:layout_width="wrap_content"
+            android:layout_height="300dp">
+        </CalendarView>
+
+
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_apply"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="Apply"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:background="#007AFC"
+        android:layout_below="@+id/ll"/>
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_below="@+id/btn_apply"
+        android:layout_centerHorizontal="true"
+        android:layout_marginVertical="30dp"
+        android:background="#FFF">
+
+        <LinearLayout
+            android:id="@+id/ll2"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="20dp"
+            android:background="#F2A900"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:id="@+id/tv1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="100dp"
+                android:paddingBottom="10dp"
+                android:text="Room 1">
+
+            </TextView>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll3"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="160dp"
+            android:background="#F2A900"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:id="@+id/tv2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="100dp"
+                android:paddingBottom="10dp"
+                android:text="Room 2">
+
+            </TextView>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
 
 </RelativeLayout>
