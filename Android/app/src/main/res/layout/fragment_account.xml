@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.AccountFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/username_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="30dp"
+        android:text="@string/username"
+        android:textColor="@color/black"
+        android:textSize="40sp"
+        app:drawableBottomCompat="@drawable/ic_baseline_person_outline_24" />
+
+<ScrollView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/username_account">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="30dp"
+        android:id="@+id/main_features"
+
+        >
+
+
+        <EditText
+
+            android:id="@+id/et_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Email:"
+            android:inputType="textEmailAddress"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp"
+            />
+
+        <EditText
+            android:id="@+id/et_mame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Name:"
+            android:inputType="text"
+            android:layout_marginBottom="20dp"
+            />
+
+        <EditText
+            android:id="@+id/et_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Number:"
+            android:inputType="number"
+            android:layout_marginBottom="20dp"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_password"
+            android:backgroundTint="#8C8888"
+            android:textColor="@color/black"
+            android:layout_marginStart="200dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="30dp"
+        android:layout_below="@id/main_features"
+        >
+
+
+        <EditText
+
+            android:id="@+id/et_oldpass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/old_password"
+            android:inputType="textEmailAddress"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp"
+            />
+
+        <EditText
+            android:id="@+id/et_newpass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/new_password"
+            android:inputType="text"
+            android:layout_marginBottom="20dp"
+            />
+
+        <EditText
+            android:id="@+id/et_newpass2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/new_password_confirm"
+            android:inputType="number"
+            android:layout_marginBottom="20dp"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:backgroundTint="#8C8888"
+            android:textColor="@color/black"
+            android:layout_marginStart="200dp"
+            />
+    </LinearLayout>
+
+    </RelativeLayout>
+</ScrollView>
+
+</RelativeLayout>

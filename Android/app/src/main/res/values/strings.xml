@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">libsked</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="username">Username</string>
+    <string name="edit_password">Edit Password</string>
+    <string name="new_password_confirm">New Password Confirm:</string>
+    <string name="new_password">New Password:</string>
+    <string name="old_password">Old Password:</string>
+    <string name="room_x">Room X</string>
 </resources>
