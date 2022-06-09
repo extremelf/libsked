@@ -1,7 +1,9 @@
 package com.example.libsked.authentication
 
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -11,6 +13,8 @@ import android.widget.Toast
 import com.example.libsked.MainActivity
 import com.example.libsked.R
 import com.google.firebase.auth.FirebaseAuth
+
+const val SHARED_PREF_NAME = "USERINFO"
 
 class Login : AppCompatActivity() {
 
@@ -25,7 +29,17 @@ class Login : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        val sharedPref: SharedPreferences = getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
 
+        val uid = sharedPref.getString("USERID", "")
+
+        if (uid != null) {
+            if(uid.isNotBlank()) {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
         // Ligar às Views do XML
         Email = findViewById(R.id.et_email)
         Pass = findViewById(R.id.et_password)
@@ -58,6 +72,10 @@ class Login : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(this) {
             if (it.isSuccessful) {
                 Toast.makeText(this, "Successfully Logged In!", Toast.LENGTH_SHORT).show()
+                val id = auth.currentUser?.uid
+                if (id != null) {
+                    saveToSharedPref(id)
+                }
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 // finish() para acabar a atividade
@@ -65,5 +83,15 @@ class Login : AppCompatActivity() {
             } else
                 Toast.makeText(this, "Log In failed! ", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun saveToSharedPref(uid: String){
+        val sharePref: SharedPreferences = getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
+
+        sharePref
+            .edit()
+            .putString("USERID", uid)
+            .apply()
+
     }
 }
