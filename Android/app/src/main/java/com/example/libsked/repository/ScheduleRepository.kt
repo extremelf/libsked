@@ -4,6 +4,7 @@ import androidx.annotation.WorkerThread
 import com.example.libsked.dao.PersonDao
 import com.example.libsked.dao.RoomDao
 import com.example.libsked.dao.ScheduleDao
+import com.example.libsked.model.RoomTable
 import com.example.libsked.model.Schedule
 import kotlinx.coroutines.flow.Flow
 
@@ -16,6 +17,7 @@ class ScheduleRepository(
 
     fun getRoomSchedule(roomId: Int): Flow<List<Schedule>> = scheduleDao.getRoomSchedule(roomId)
 
+    fun getRoom(id: Int): Flow<RoomTable> = roomDao.getRoom(id)
 
     fun getRooms(): Flow<List<Int>> = roomDao.getRoomNumbers()
 
