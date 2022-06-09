@@ -1,7 +1,7 @@
 package com.example.libsked.fragments
 
-import android.app.Activity
-import android.graphics.*
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,18 +9,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import com.example.libsked.MainActivity
 import com.example.libsked.R
 import com.example.libsked.appplication.ScheduleApplication
 import com.example.libsked.model.ScheduleViewModel
 import com.example.libsked.model.ScheduleViewModelFactory
-import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.android.synthetic.main.fragment_main.view.*
-import java.sql.Timestamp
-import java.time.Instant
-import java.time.format.DateTimeFormatter
-import java.time.format.DateTimeFormatter.ISO_INSTANT
 import java.util.*
 
 
@@ -75,6 +71,7 @@ class MainFragment : Fragment() {
                         Color.GREEN,
                         PorterDuff.Mode.SRC_IN)
                     room.setOnClickListener {
+                        changeToRoomFragment(roomNumber)
                         Toast.makeText(requireContext(), false.toString(), Toast.LENGTH_SHORT).show()
                     }
                     scheduleViewModel.getRoomSchedule(roomNumber)
@@ -95,6 +92,22 @@ class MainFragment : Fragment() {
                         })
                 }
             })
+    }
+
+    private fun changeToRoomFragment(roomNumber: Int){
+        val fragment = Fragment(R.layout.activity_room_schedule)
+        val bundle = Bundle()
+        val fragmentManager = parentFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+        //data to be sent to the new fragment
+        bundle.putInt("RoomNumber", roomNumber)
+        fragment.arguments = bundle
+
+        //fragment change
+        fragmentTransaction.replace(R.id.frame_layout, fragment)
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
     }
 
     companion object {
