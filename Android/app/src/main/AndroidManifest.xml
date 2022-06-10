@@ -14,10 +14,10 @@
             android:name=".RoomSchedule"
             android:exported="false" />
         <activity
-            android:name=".authentication.forgotPassword"
+            android:name=".authentication.ForgotPassword"
             android:exported="false" />
         <activity
-            android:name=".authentication.register"
+            android:name=".authentication.Register"
             android:exported="false" />
         <activity
             android:name=".Appointments"

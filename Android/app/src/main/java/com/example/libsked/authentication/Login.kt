@@ -41,6 +41,7 @@ class Login : AppCompatActivity() {
                 finish()
             }
         }
+
         // Ligar às Views do XML
         Email = findViewById(R.id.et_email)
         Pass = findViewById(R.id.et_password)
@@ -60,6 +61,12 @@ class Login : AppCompatActivity() {
             val intent = Intent(this, Register::class.java)
             startActivity(intent)
             // finish() para acabar a atividade
+            finish()
+       }
+
+        ForgotPass.setOnClickListener {
+            val intent = Intent(this, ForgotPassword::class.java)
+            startActivity(intent)
             finish()
         }
     }
