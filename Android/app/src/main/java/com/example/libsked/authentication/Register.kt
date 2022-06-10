@@ -3,6 +3,7 @@ package com.example.libsked.authentication
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -10,8 +11,9 @@ import com.example.libsked.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_register.*
 
-class register : AppCompatActivity() {
+class Register : AppCompatActivity() {
 
     lateinit var Email: EditText
     private lateinit var Pass: EditText
@@ -66,6 +68,8 @@ class register : AppCompatActivity() {
             return
         }
 
+        progressBar.visibility = View.VISIBLE
+
         // Se tudo estiver correto
         // Chamamos createUserWithEmailAndPassword
         // Usando Auth passamos o email e a password
@@ -76,8 +80,10 @@ class register : AppCompatActivity() {
                 startActivity(intent)
                 // finish() para acabar a atividade
                 finish()
+                progressBar.visibility = View.GONE
             } else {
                 Toast.makeText(this, "Register Failed!", Toast.LENGTH_SHORT).show()
+                progressBar.visibility = View.GONE
             }
         }
     }
