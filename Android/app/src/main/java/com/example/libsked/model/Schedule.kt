@@ -13,11 +13,6 @@ import com.example.libsked.db.Converters
         parentColumns = arrayOf("id"),
         childColumns = arrayOf("room_id"),
         onDelete = ForeignKey.CASCADE
-    ), ForeignKey(
-        entity = Person::class,
-        parentColumns = arrayOf("id"),
-        childColumns = arrayOf("person_id"),
-        onDelete = ForeignKey.CASCADE
     )]
 )
 class Schedule(
@@ -28,7 +23,7 @@ class Schedule(
     @TypeConverters(Converters::class)
     val creation_timestamp: Long,
     @ColumnInfo(name = "person_id")
-    val personId: Int,
+    val personId: String = "",
     @ColumnInfo(name = "room_id")
     val roomId: Int,
     @ColumnInfo(name = "start")
