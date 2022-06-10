@@ -50,7 +50,6 @@ class ScheduleLineAdapater :
                 if (scheduleStart <= currentHourTimestamp && scheduleEnd > currentHourTimestamp) {
                     isClear = false
                 }
-
             }
         }
 
