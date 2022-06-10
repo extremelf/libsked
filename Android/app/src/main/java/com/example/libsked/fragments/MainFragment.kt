@@ -95,7 +95,7 @@ class MainFragment : Fragment() {
     }
 
     private fun changeToRoomFragment(roomNumber: Int){
-        val fragment = Fragment(R.layout.activity_room_schedule)
+        val fragment = RoomInfoFragment()
         val bundle = Bundle()
         val fragmentManager = parentFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()

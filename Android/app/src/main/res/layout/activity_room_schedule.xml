@@ -12,7 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_margin="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/square">
 
 
@@ -33,9 +36,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/room_number"
-            android:text="table:"
-            android:layout_marginBottom="15dp"
             android:layout_marginStart="15dp"
+            android:layout_marginBottom="15dp"
+            android:text="table:"
+
+            />
+
+        <TextView
+            android:id="@+id/room_chairs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/room_tables"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="15dp"
+            android:text="Chairs:"
 
             />
 
@@ -43,10 +57,10 @@
             android:id="@+id/room_sockets"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/room_tables"
-            android:text="Sockets?:"
-            android:layout_marginBottom="15dp"
+            android:layout_below="@id/room_chairs"
             android:layout_marginStart="15dp"
+            android:layout_marginBottom="15dp"
+            android:text="Sockets?:"
 
             />
 
@@ -99,15 +113,14 @@
             android:textSize="30dp"
 
             />
-
-        <TextView
-            android:id="@+id/firstHour"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Here"
-            android:textSize="15dp"
-            android:layout_marginStart="10dp"
-            />
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/schedule_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </ScrollView>
 
         </LinearLayout>
 

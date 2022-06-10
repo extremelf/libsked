@@ -31,7 +31,7 @@ class Converters {
 
 @Database(
     entities = [Schedule::class, RoomTable::class, Person::class],
-    version = 2,
+    version = 3,
     exportSchema = false
 
 )
@@ -74,6 +74,7 @@ abstract class ScheduleRoomDatabase : RoomDatabase() {
                 roomNumber = 1,
                 chairsNumber = 4,
                 socketsNumber = 3,
+                tablesNumber = 3,
                 description = "Small room"
             )
             val room1Id = roomDao.insert(room)
@@ -81,6 +82,7 @@ abstract class ScheduleRoomDatabase : RoomDatabase() {
                 roomNumber = 2,
                 chairsNumber = 15,
                 socketsNumber = 9,
+                tablesNumber = 1,
                 description = "Big room"
             )
             val room2Id = roomDao.insert(room)
@@ -88,6 +90,7 @@ abstract class ScheduleRoomDatabase : RoomDatabase() {
                 roomNumber = 3,
                 chairsNumber = 15,
                 socketsNumber = 9,
+                tablesNumber = 4,
                 description = "Big room"
             )
             roomDao.insert(room)
@@ -95,6 +98,7 @@ abstract class ScheduleRoomDatabase : RoomDatabase() {
                 roomNumber = 4,
                 chairsNumber = 15,
                 socketsNumber = 9,
+                tablesNumber = 2,
                 description = "Big room"
             )
             roomDao.insert(room)
