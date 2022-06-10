@@ -3,10 +3,8 @@ package com.example.libsked.db
 import android.content.Context
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.example.libsked.dao.PersonDao
 import com.example.libsked.dao.RoomDao
 import com.example.libsked.dao.ScheduleDao
-import com.example.libsked.model.Person
 import com.example.libsked.model.RoomTable
 import com.example.libsked.model.Schedule
 import kotlinx.coroutines.CoroutineScope
@@ -30,15 +28,14 @@ class Converters {
 }
 
 @Database(
-    entities = [Schedule::class, RoomTable::class, Person::class],
-    version = 2,
+    entities = [Schedule::class, RoomTable::class],
+    version = 3,
     exportSchema = false
 
 )
 @TypeConverters(Converters::class)
 abstract class ScheduleRoomDatabase : RoomDatabase() {
     abstract fun ScheduleDao(): ScheduleDao
-    abstract fun PersonDao(): PersonDao
     abstract fun RoomDao(): RoomDao
 
     private class ScheduleDatabaseCallback(
@@ -55,7 +52,6 @@ abstract class ScheduleRoomDatabase : RoomDatabase() {
                     populateDatabase(
                         database.ScheduleDao(),
                         database.RoomDao(),
-                        database.PersonDao()
                     )
                 }
             }
@@ -64,16 +60,15 @@ abstract class ScheduleRoomDatabase : RoomDatabase() {
         suspend fun populateDatabase(
             scheduleDao: ScheduleDao,
             roomDao: RoomDao,
-            personDao: PersonDao
         ) {
             scheduleDao.deleteAll()
-            personDao.deleteAll()
             roomDao.deleteAll()
 
             var room = RoomTable(
                 roomNumber = 1,
                 chairsNumber = 4,
                 socketsNumber = 3,
+                tablesNumber = 3,
                 description = "Small room"
             )
             val room1Id = roomDao.insert(room)
@@ -81,6 +76,7 @@ abstract class ScheduleRoomDatabase : RoomDatabase() {
                 roomNumber = 2,
                 chairsNumber = 15,
                 socketsNumber = 9,
+                tablesNumber = 1,
                 description = "Big room"
             )
             val room2Id = roomDao.insert(room)
@@ -88,6 +84,7 @@ abstract class ScheduleRoomDatabase : RoomDatabase() {
                 roomNumber = 3,
                 chairsNumber = 15,
                 socketsNumber = 9,
+                tablesNumber = 4,
                 description = "Big room"
             )
             roomDao.insert(room)
@@ -95,18 +92,14 @@ abstract class ScheduleRoomDatabase : RoomDatabase() {
                 roomNumber = 4,
                 chairsNumber = 15,
                 socketsNumber = 9,
+                tablesNumber = 2,
                 description = "Big room"
             )
             roomDao.insert(room)
 
-            val person = Person(name = "Luís", cc = 12313123)
-
-            val personId = personDao.insert(person)
-
             val schedule = Schedule(
                 creation_timestamp = Calendar.getInstance().timeInMillis,
                 roomId = room1Id.toInt(),
-                personId = personId.toInt(),
                 start = Timestamp.valueOf("2022-5-28 10:30:0.0").time,
                 end = Timestamp.valueOf("2022-5-28 18:0:0.0").time
             )
@@ -115,7 +108,6 @@ abstract class ScheduleRoomDatabase : RoomDatabase() {
             val schedule2 = Schedule(
                 creation_timestamp = Calendar.getInstance().timeInMillis,
                 roomId = room2Id.toInt(),
-                personId = personId.toInt(),
                 start = Timestamp.valueOf("2022-5-28 10:30:0.0").time,
                 end = Timestamp.valueOf("2022-5-28 18:0:0.0").time
             )

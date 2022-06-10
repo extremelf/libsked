@@ -14,6 +14,6 @@ class ScheduleApplication : Application() {
     // rather than when the application starts
     val database by lazy { ScheduleRoomDatabase.getDatabase(this, applicationScope) }
     val repository by lazy {
-        ScheduleRepository(database.ScheduleDao(), database.RoomDao(), database.PersonDao())
+        ScheduleRepository(database.ScheduleDao(), database.RoomDao())
     }
 }

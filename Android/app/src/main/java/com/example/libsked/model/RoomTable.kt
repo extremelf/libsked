@@ -15,6 +15,8 @@ class RoomTable (
     val chairsNumber: Int,
     @ColumnInfo(name = "sockets_number")
     val socketsNumber: Int,
+    @ColumnInfo(name = "tables_number")
+    val tablesNumber: Int,
     @ColumnInfo(name = "description")
     val description: String
 )
