@@ -17,6 +17,8 @@ class ScheduleRepository(
 
     fun getRoomSchedule(roomId: Int): Flow<List<Schedule>> = scheduleDao.getRoomSchedule(roomId)
 
+    fun getRoomScheduleOfDay(roomId: Int): Flow<List<Schedule>> = scheduleDao.getDayScheduleOfRoom(roomId)
+
     fun getRoom(id: Int): Flow<RoomTable> = roomDao.getRoom(id)
 
     fun getRooms(): Flow<List<Int>> = roomDao.getRoomNumbers()

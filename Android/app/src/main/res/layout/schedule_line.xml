@@ -12,7 +12,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:background="@drawable/rectangle_red"
-        android:padding="5dp"
+        android:padding="2dp"
         android:layout_margin="3dp"/>
 
 </RelativeLayout>

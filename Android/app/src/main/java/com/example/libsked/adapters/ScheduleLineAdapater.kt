@@ -16,7 +16,7 @@ import java.util.*
 class ScheduleLineAdapater :
     RecyclerView.Adapter<ScheduleViewHolder>() {
     private lateinit var scheduleList: List<Schedule>
-    private val hours = (0..23).toList()
+    private val hoursList = (7..32).toList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleViewHolder {
         return ScheduleViewHolder(
             LayoutInflater
@@ -32,20 +32,34 @@ class ScheduleLineAdapater :
     @SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
         var isClear = true
-        val currentHour = hours[position]
+        val currentHour = hoursList[position]
         if(this::scheduleList.isInitialized) {
             for (schedule in scheduleList) {
                 val scheduleStart = Timestamp(schedule.start)
+                val scheduleEnd = Timestamp(schedule.end)
                 val currentHourTimestamp = Timestamp(Calendar.getInstance().timeInMillis)
-                currentHourTimestamp.hours = currentHour
-                if (scheduleStart.hours == currentHourTimestamp.hours) {
+
+                if(currentHour % 2 != 0){
+                    currentHourTimestamp.hours = (hoursList[0] + ((currentHour - hoursList[0]) / 2))
+                    currentHourTimestamp.minutes = 0
+
+                } else {
+                    currentHourTimestamp.hours = (hoursList[0] + ((currentHour-1 - hoursList[0]) / 2))
+                    currentHourTimestamp.minutes = 30
+                }
+                if (scheduleStart <= currentHourTimestamp && scheduleEnd > currentHourTimestamp) {
                     isClear = false
                 }
+
             }
         }
 
         holder.apply {
-            hours.text = currentHour.toString()
+            if(currentHour%2 != 0){
+                hours.text = (hoursList[0] + ((currentHour - hoursList[0]) / 2)).toString()
+            } else {
+                hours.text = ""
+            }
             if(isClear){
                 hours.setBackgroundResource(R.drawable.rectangle_green)
             } else {
@@ -55,7 +69,7 @@ class ScheduleLineAdapater :
     }
 
     override fun getItemCount(): Int {
-        return hours.size
+        return hoursList.size
     }
 
     fun changeList(scheduleList: List<Schedule>){

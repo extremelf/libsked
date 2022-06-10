@@ -50,7 +50,7 @@ class RoomInfoFragment: Fragment() {
         }
 
 
-        roomNumber?.let { scheduleViewModel.getRoomSchedule(it).observe(viewLifecycleOwner, Observer { item ->
+        roomNumber?.let { scheduleViewModel.getRoomScheduleOfDay(it).observe(viewLifecycleOwner, Observer { item ->
             scheduleAdapter.changeList(item)
         }) }
         roomNumber?.let {
