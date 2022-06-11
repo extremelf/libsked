@@ -8,4 +8,8 @@
     <string name="new_password">New Password:</string>
     <string name="old_password">Old Password:</string>
     <string name="room_x">Room X</string>
+    <string name="room_2">Room 2</string>
+    <string name="room_3">Room 3</string>
+    <string name="room_4">Room 4</string>
+    <string name="library">LIBRARY</string>
 </resources>
