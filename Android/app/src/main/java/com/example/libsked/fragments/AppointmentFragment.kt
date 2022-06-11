@@ -76,7 +76,7 @@ class AppointmentFragment : Fragment() {
         val endOfDay =  Calendar.getInstance().time
         endOfDay.hours = 23
         endOfDay.minutes = 59
-        Toast.makeText(requireContext(), endOfDay.time.toString(), Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), scheduleViewModel.getScheduleOnXDay(startOfDay.time,endOfDay.time,uid.toString()).toString(), Toast.LENGTH_SHORT).show()
 
         scheduleViewModel.getScheduleOnXDay(startOfDay.time,endOfDay.time,uid.toString()).observe(viewLifecycleOwner, Observer { item ->
             scheduleAdapter.changeList(item)

@@ -31,9 +31,10 @@ class HistoryLineAdapter : RecyclerView.Adapter<HistoryViewHolder>() {
 
     @SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
-        val currentSchedule = scheduleList[position]
-        var isAfter = false
+
         if (this::scheduleList.isInitialized) {
+            val currentSchedule = scheduleList[position]
+            var isAfter = false
             for (schedule in scheduleList) {
                 val currentHourTimestamp = Timestamp(Calendar.getInstance().timeInMillis)
                 if (currentSchedule.end > currentHourTimestamp.time) {
@@ -41,27 +42,32 @@ class HistoryLineAdapter : RecyclerView.Adapter<HistoryViewHolder>() {
                 }
 
             }
-        }
+            holder.apply {
+                if (isAfter) {
+                    flag.text = "schedule completed"
+                } else {
+                    flag.text = "Schedule booked"
+                }
+                roomID.text = scheduleList[position].roomId.toString()
+                val auxDuration = (scheduleList[position].end - scheduleList[position].start)
 
-        holder.apply {
-            if (isAfter) {
-                flag.text = "schedule completed"
-            } else {
-                flag.text = "Schedule booked"
+                val auxDuration2 = convertFromDuration(auxDuration)
+                duration.text = auxDuration2.toString()
+                startTime.text = Timestamp(scheduleList[position].start).hours.toString()
+                endTime.text = Timestamp(scheduleList[position].end).hours.toString()
             }
-            roomID.text = scheduleList[position].roomId.toString()
-            val auxDuration = (scheduleList[position].end - scheduleList[position].start)
-
-            val auxDuration2 = convertFromDuration(auxDuration)
-            duration.text = auxDuration2.toString()
-            startTime.text = Timestamp(scheduleList[position].start).hours.toString()
-            endTime.text = Timestamp(scheduleList[position].end).hours.toString()
         }
+
+
     }
 
 
     override fun getItemCount(): Int {
-        return scheduleList.size
+        return if(this::scheduleList.isInitialized){
+            scheduleList.size
+        } else{
+            0
+        }
     }
 
     fun changeList(scheduleList: List<Schedule>) {
