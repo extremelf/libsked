@@ -63,9 +63,6 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-
-
-
     <TextView
 
         android:id="@+id/tv_forgot_password"
@@ -135,5 +132,14 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="15dp"
         app:srcCompat="@drawable/arrowicon" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

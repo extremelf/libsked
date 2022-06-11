@@ -9,7 +9,7 @@ import android.widget.Toast
 import com.example.libsked.R
 import com.google.firebase.auth.FirebaseAuth
 
-class forgotPassword : AppCompatActivity() {
+class ForgotPassword : AppCompatActivity() {
 
     lateinit var Email: EditText
     private lateinit var btnReset: Button

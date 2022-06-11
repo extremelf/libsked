@@ -19,6 +19,12 @@ interface ScheduleDao {
     /*@Query("SELECT CASE WHEN EXISTS(SELECT * FROM schedule WHERE NOW() BETWEEN start AND `end` AND room_id = :roomId) THEN 1 ELSE 0 end")
     fun roomOccupied(roomId: Int): Boolean*/
 
+
+    @Query("SELECT * FROM ROOM_SCHEDULE WHERE room_id = :id AND " +
+            "start > strftime('%s',datetime('now', 'start of day'))*1000 AND " +
+            "`end` < strftime('%s',datetime('now', 'start of day', '+1 day', '-1 second'))*1000")
+    fun getDayScheduleOfRoom(id: Int): Flow<List<Schedule>>
+
     @Query("SELECT DISTINCT(room_id) as rooms FROM room_schedule")
     fun getRooms(): Flow<List<Int>>
 
