@@ -89,7 +89,7 @@ class Register : AppCompatActivity() {
 
                 database = FirebaseDatabase.getInstance().getReference("users")
                 val user = Users(name, email, number, pass)
-                database.child(name).setValue(user)
+                database.child(email).setValue(user)
 
                 Toast.makeText(this, "User Registered Successfully", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, Login::class.java)
