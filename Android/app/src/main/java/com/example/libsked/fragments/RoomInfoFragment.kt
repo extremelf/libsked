@@ -1,5 +1,7 @@
 package com.example.libsked.fragments
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.libsked.R
 import com.example.libsked.adapters.ScheduleLineAdapater
 import com.example.libsked.appplication.ScheduleApplication
+import com.example.libsked.authentication.SHARED_PREF_NAME
 import com.example.libsked.model.*
 import kotlinx.android.synthetic.main.activity_room_schedule.*
 import java.sql.Timestamp
@@ -44,6 +47,12 @@ class RoomInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val sharedPref: SharedPreferences =
+            requireContext().getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
+
+        val uid = sharedPref.getString("USERID", "")
+
         ("Room: $roomNumber").also { room_number.text = it }
         scheduleAdapter = ScheduleLineAdapater()
         schedule_recycler.apply {
@@ -64,6 +73,36 @@ class RoomInfoFragment : Fragment() {
             roomViewModel.getRoomInfo(it).observe(viewLifecycleOwner, Observer { item ->
                 populateInfo(item)
             })
+        }
+
+        reservationButton.setOnClickListener {
+            val startTimestamp = Timestamp(Calendar.getInstance().timeInMillis)
+            val endTimestamp = Timestamp(Calendar.getInstance().timeInMillis)
+            val spinnerEndTime = spinnerEnd.selectedItem.toString().split(":")
+            val spinnerStartTime = spinnerStart.selectedItem.toString().split(":")
+
+            endTimestamp.hours = spinnerEndTime[0].toInt()
+            endTimestamp.minutes = spinnerEndTime[1].toInt()
+            endTimestamp.seconds = 0
+            endTimestamp.nanos = 0
+
+            startTimestamp.hours = spinnerStartTime[0].toInt()
+            startTimestamp.minutes = spinnerStartTime[1].toInt()
+            startTimestamp.seconds = 0
+            startTimestamp.nanos = 0
+
+            uid?.let { it1 ->
+                roomNumber?.let { it2 ->
+                    Schedule(
+                        creation_timestamp = Calendar.getInstance().timeInMillis,
+                        personId = it1,
+                        roomId = it2,
+                        start = startTimestamp.time,
+                        end = endTimestamp.time
+                    )
+                }
+            }
+                ?.let { it2 -> scheduleViewModel.insert(it2) }
         }
 
         spinnerStart.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -93,20 +132,6 @@ class RoomInfoFragment : Fragment() {
                     }
                 }
                 spinnerEnd.adapter = spinnerAdapter(hours, false)
-                // parent.getItemAtPosition(pos)
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                // Another interface callback
-            }
-        }
-        spinnerEnd.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
-                Toast.makeText(
-                    requireContext(),
-                    parent.getItemAtPosition(pos).toString(),
-                    Toast.LENGTH_SHORT
-                ).show()
                 // parent.getItemAtPosition(pos)
             }
 
@@ -146,7 +171,10 @@ class RoomInfoFragment : Fragment() {
         availablehours = hours
     }
 
-    private fun spinnerAdapter(values: MutableList<ScheduleInfo>, start: Boolean = true): SpinnerAdapter {
+    private fun spinnerAdapter(
+        values: MutableList<ScheduleInfo>,
+        start: Boolean = true
+    ): SpinnerAdapter {
         val availableStarts: MutableList<String> = mutableListOf()
         for (item in values) {
             if (!item.isOccupied || !start) {
