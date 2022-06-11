@@ -6,127 +6,156 @@
     android:layout_height="match_parent"
     tools:context=".fragments.AccountFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/username_account"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="30dp"
+        android:layout_margin="30dp"
+        android:background="@drawable/square"
+        android:backgroundTint="#FF9800"
+        android:gravity="center"
+        android:padding="5dp"
         android:text="@string/username"
         android:textColor="@color/black"
         android:textSize="40sp"
-        app:drawableBottomCompat="@drawable/ic_baseline_person_outline_24" />
+        android:textStyle="bold"
+        app:drawableBottomCompat="@drawable/ic_baseline_person_outline_24"
+        app:drawableTint="@color/black"
 
-<ScrollView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/username_account">
+        />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="30dp"
-        android:id="@+id/main_features"
+        android:layout_below="@id/username_account">
 
-        >
-
-
-        <EditText
-
-            android:id="@+id/et_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Email:"
-            android:inputType="textEmailAddress"
-            android:textStyle="bold"
-            android:layout_marginBottom="20dp"
-            />
-
-        <EditText
-            android:id="@+id/et_mame"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Name:"
-            android:inputType="text"
-            android:layout_marginBottom="20dp"
-            />
-
-        <EditText
-            android:id="@+id/et_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Number:"
-            android:inputType="number"
-            android:layout_marginBottom="20dp"
-            />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/edit_password"
-            android:backgroundTint="#8C8888"
-            android:textColor="@color/black"
-            android:layout_marginStart="200dp"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="30dp"
-        android:layout_below="@id/main_features"
-        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
 
-        <EditText
+            <LinearLayout
+                android:id="@+id/main_features"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:orientation="vertical">
 
-            android:id="@+id/et_oldpass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/old_password"
-            android:inputType="textEmailAddress"
-            android:textStyle="bold"
-            android:layout_marginBottom="20dp"
-            />
 
-        <EditText
-            android:id="@+id/et_newpass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/new_password"
-            android:inputType="text"
-            android:layout_marginBottom="20dp"
-            />
+                <TextView
 
-        <EditText
-            android:id="@+id/et_newpass2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/new_password_confirm"
-            android:inputType="number"
-            android:layout_marginBottom="20dp"
-            />
+                    android:id="@+id/et_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/email"
+                    android:textStyle="bold" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Submit"
-            android:backgroundTint="#8C8888"
-            android:textColor="@color/black"
-            android:layout_marginStart="200dp"
-            />
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/et_mame"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginStart="10dp"
+                    android:textStyle="bold"
+                    android:text="@string/name" />
 
-    </RelativeLayout>
-</ScrollView>
+                <TextView
+                    android:id="@+id/et_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginStart="10dp"
+                    android:textStyle="bold"
+                    android:text="@string/number" />
+
+                <RelativeLayout
+                    android:id="@+id/buttons_Profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:id="@+id/edit_password"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:backgroundTint="#C3FF9800"
+                        android:text="@string/edit_password"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_toLeftOf="@id/edit_password"
+                        android:backgroundTint="#C3FF9800"
+                        android:text="@string/logout"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/main_features"
+                android:layout_margin="30dp"
+                android:orientation="vertical"
+
+                >
+
+
+                <EditText
+
+                    android:id="@+id/et_oldpass"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="@string/old_password"
+                    android:inputType="textPassword" />
+
+                <EditText
+                    android:id="@+id/et_newpass"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="@string/new_password"
+                    android:inputType="textPassword" />
+
+                <EditText
+                    android:id="@+id/et_newpass2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="@string/new_password_confirm"
+                    android:inputType="textPassword" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/submit_password"
+                    >
+
+                <Button
+                    android:id="@+id/submit_password_change"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:backgroundTint="#C3FF9800"
+                    android:text="@string/submit"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>
