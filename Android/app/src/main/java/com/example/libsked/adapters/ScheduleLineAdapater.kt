@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.libsked.R
 import com.example.libsked.R.color.occupied_red
+import com.example.libsked.fragments.ScheduleInfo
 import com.example.libsked.model.Schedule
 import kotlinx.android.synthetic.main.schedule_line.view.*
 import java.sql.Timestamp
@@ -15,8 +16,7 @@ import java.util.*
 
 class ScheduleLineAdapater :
     RecyclerView.Adapter<ScheduleViewHolder>() {
-    private lateinit var scheduleList: List<Schedule>
-    private val hoursList = (7..32).toList()
+    private lateinit var scheduleList: List<ScheduleInfo>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleViewHolder {
         return ScheduleViewHolder(
             LayoutInflater
@@ -31,47 +31,33 @@ class ScheduleLineAdapater :
 
     @SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
-        var isClear = true
-        val currentHour = hoursList[position]
-        if(this::scheduleList.isInitialized) {
-            for (schedule in scheduleList) {
-                val scheduleStart = Timestamp(schedule.start)
-                val scheduleEnd = Timestamp(schedule.end)
-                val currentHourTimestamp = Timestamp(Calendar.getInstance().timeInMillis)
-
-                if(currentHour % 2 != 0){
-                    currentHourTimestamp.hours = (hoursList[0] + ((currentHour - hoursList[0]) / 2))
-                    currentHourTimestamp.minutes = 0
-
-                } else {
-                    currentHourTimestamp.hours = (hoursList[0] + ((currentHour-1 - hoursList[0]) / 2))
-                    currentHourTimestamp.minutes = 30
-                }
-                if (scheduleStart <= currentHourTimestamp && scheduleEnd > currentHourTimestamp) {
-                    isClear = false
-                }
-            }
-        }
-
-        holder.apply {
-            if(currentHour%2 != 0){
-                hours.text = (hoursList[0] + ((currentHour - hoursList[0]) / 2)).toString()
-            } else {
-                hours.text = ""
-            }
-            if(isClear){
-                hours.setBackgroundResource(R.drawable.rectangle_green)
-            } else {
-                hours.setBackgroundResource(R.drawable.rectangle_red)
-            }
-        }
+       if(this::scheduleList.isInitialized){
+           val currentHour = scheduleList[position]
+           holder.apply {
+               if(currentHour.minute == 0){
+                   hours.text = currentHour.hour.toString()
+               } else {
+                   hours.text = ""
+               }
+               if(!currentHour.isOccupied){
+                   hours.setBackgroundResource(R.drawable.rectangle_green)
+               } else {
+                   hours.setBackgroundResource(R.drawable.rectangle_red)
+               }
+           }
+       }
     }
 
     override fun getItemCount(): Int {
-        return hoursList.size
+        return if(this::scheduleList.isInitialized){
+            scheduleList.size
+        } else{
+            0
+        }
+
     }
 
-    fun changeList(scheduleList: List<Schedule>){
+    fun changeList(scheduleList: List<ScheduleInfo>){
         this.scheduleList = scheduleList
         notifyDataSetChanged()
     }
