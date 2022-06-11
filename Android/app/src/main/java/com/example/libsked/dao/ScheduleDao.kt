@@ -26,10 +26,8 @@ interface ScheduleDao {
     fun getDayScheduleOfRoom(id: Int): Flow<List<Schedule>>
 
 
-    @Query("SELECT * FROM ROOM_SCHEDULE WHERE person_id = :userID AND "+
-            "start > strftime('%s',datetime(:day, 'start of day'))*1000 AND " +
-            "`end` < strftime('%s',datetime(:day, 'end of day', '-1 second'))*1000")
-    fun getSchedulexDay(day: Long,userID: String): Flow<List<Schedule>>
+    @Query("SELECT * FROM ROOM_SCHEDULE WHERE person_id = :userID AND start > :startOfday AND `end` < :endOfday")
+    fun getSchedulexDay(startOfday: Long,endOfday: Long,userID: String): Flow<List<Schedule>>
 
     @Query("SELECT DISTINCT(room_id) as rooms FROM room_schedule")
     fun getRooms(): Flow<List<Int>>

@@ -1,13 +1,13 @@
 package com.example.libsked.fragments
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CalendarView.OnDateChangeListener
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,16 +16,16 @@ import com.example.libsked.adapters.HistoryLineAdapter
 import com.example.libsked.appplication.ScheduleApplication
 import com.example.libsked.model.ScheduleViewModel
 import com.example.libsked.model.ScheduleViewModelFactory
-import kotlinx.android.synthetic.main.activity_room_schedule.*
 import kotlinx.android.synthetic.main.fragment_appointment.*
-import kotlinx.android.synthetic.main.fragment_appointment.history_recycler
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.util.*
 
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
+private const val SHARED_PREF_NAME = "USERINFO"
 /**
  * A simple [Fragment] subclass.
  * Use the [AppointmentFragment.newInstance] factory method to
@@ -58,14 +58,27 @@ class AppointmentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        scheduleAdapter = HistoryLineAdapter()
-        history_recycler.apply{
-            setHasFixedSize(false)
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = scheduleAdapter
-        }
+        val sharedPref: SharedPreferences = requireContext().getSharedPreferences(com.example.libsked.authentication.SHARED_PREF_NAME, Context.MODE_PRIVATE)
 
-        scheduleViewModel.getScheduleOnXDay(calendar.date,"X8bpDmYU4NQ6iApkk7TtmOZCLIL2").observe(viewLifecycleOwner, Observer { item ->
+        val uid = sharedPref.getString("USERID", "")
+        scheduleAdapter = HistoryLineAdapter()
+
+        val layoutManager = LinearLayoutManager(requireContext())
+        history_recycler.adapter = scheduleAdapter
+        history_recycler.layoutManager = layoutManager
+
+
+        val startOfDay =  Calendar.getInstance().time
+        startOfDay.hours = 0
+
+
+
+        val endOfDay =  Calendar.getInstance().time
+        endOfDay.hours = 23
+        endOfDay.minutes = 59
+        Toast.makeText(requireContext(), endOfDay.time.toString(), Toast.LENGTH_SHORT).show()
+
+        scheduleViewModel.getScheduleOnXDay(startOfDay.time,endOfDay.time,uid.toString()).observe(viewLifecycleOwner, Observer { item ->
             scheduleAdapter.changeList(item)
         })
 
@@ -91,8 +104,7 @@ class AppointmentFragment : Fragment() {
         fun newInstance(param1: String, param2: String) =
             AppointmentFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+
                 }
             }
     }
