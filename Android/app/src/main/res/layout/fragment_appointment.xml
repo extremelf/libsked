@@ -55,7 +55,7 @@
             android:paddingTop="10dp">
 
             <ScrollView
-                android:id="@+id/time_schedule"
+                android:id="@+id/history_schedule"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_above="@id/buttonTime"
@@ -69,7 +69,7 @@
 
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/schedule_recycler"
+                    android:id="@+id/history_recycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
