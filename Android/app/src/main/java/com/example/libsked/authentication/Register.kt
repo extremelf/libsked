@@ -8,14 +8,21 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.libsked.R
+import com.example.libsked.model.Users
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_register.*
 
 class Register : AppCompatActivity() {
 
+    private lateinit var database : DatabaseReference
+
     lateinit var Email: EditText
+    lateinit var Nome: EditText
+    lateinit var NumeroAluno: EditText
     private lateinit var Pass: EditText
     lateinit var ConfPass: EditText
     private lateinit var btnRegister: Button
@@ -29,6 +36,8 @@ class Register : AppCompatActivity() {
 
         // Ligar às Views do XML
         Email = findViewById(R.id.et_email)
+        Nome = findViewById(R.id.et_nome)
+        NumeroAluno = findViewById(R.id.et_number)
         Pass = findViewById(R.id.et_password)
         ConfPass = findViewById(R.id.et_passwordRepeat)
         btnRegister = findViewById(R.id.btn_register)
@@ -52,11 +61,13 @@ class Register : AppCompatActivity() {
     private fun registerUser() {
 
         val email = Email.text.toString()
+        val name = Nome.text.toString()
+        val number = NumeroAluno.text.toString()
         val pass = Pass.text.toString()
         val confirmPassword = ConfPass.text.toString()
 
         // Verificar se existem campos não preenchidos
-        if (email.isBlank() || pass.isBlank() || confirmPassword.isBlank()) {
+        if (email.isBlank() || name.isBlank() || pass.isBlank() || confirmPassword.isBlank()) {
             Toast.makeText(this, "Fields can't be blank", Toast.LENGTH_SHORT).show()
             return
         }
@@ -75,7 +86,12 @@ class Register : AppCompatActivity() {
         // Usando Auth passamos o email e a password
         auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(this) {
             if (it.isSuccessful) {
-                Toast.makeText(this, "User Registed Successfully", Toast.LENGTH_SHORT).show()
+
+                database = FirebaseDatabase.getInstance().getReference("users")
+                val user = Users(name, email, number, pass)
+                database.child(name).setValue(user)
+
+                Toast.makeText(this, "User Registered Successfully", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, Login::class.java)
                 startActivity(intent)
                 // finish() para acabar a atividade
