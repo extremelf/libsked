@@ -88,7 +88,7 @@ class Register : AppCompatActivity() {
             if (it.isSuccessful) {
                 val id = auth.currentUser?.uid
                 database = FirebaseDatabase.getInstance().getReference("users")
-                val user = Users(name, email, number, pass)
+                val user = Users(name, email, number)
                 if (id != null) {
                     database.child(id).setValue(user)
                 }
