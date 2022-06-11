@@ -27,7 +27,7 @@
         android:layout_marginTop="50dp"
         android:background="@drawable/square"
         android:gravity="center"
-        android:text="Room 2" />
+        android:text="@string/room_2" />
 
 
     <TextView
@@ -38,7 +38,7 @@
         android:layout_toLeftOf="@id/hallway"
         android:background="@drawable/square"
         android:gravity="center"
-        android:text="Room 3" />
+        android:text="@string/room_3" />
 
 
     <TextView
@@ -49,7 +49,7 @@
         android:layout_toRightOf="@id/hallway"
         android:background="@drawable/square"
         android:gravity="center"
-        android:text="Room 4"
+        android:text="@string/room_4"
 
         />
 
@@ -65,13 +65,15 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="LIBRARY"
+        android:text="@string/library"
         android:textStyle="bold"
         android:textAlignment="center"
         app:drawableTopCompat="@drawable/ic_baseline_library_books_24"
         android:drawablePadding="5dp"
         android:layout_below="@id/hallway"
         android:layout_marginTop="100dp"
+        android:textSize="30sp"
+        android:textColor="@color/black"
         />
 
 
