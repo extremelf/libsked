@@ -21,8 +21,8 @@ interface ScheduleDao {
 
 
     @Query("SELECT * FROM ROOM_SCHEDULE WHERE room_id = :id AND " +
-            "start > strftime('%s',datetime('now', 'start of day'))*1000 AND " +
-            "`end` < strftime('%s',datetime('now', 'start of day', '+1 day', '-1 second'))*1000")
+            "start > strftime('%s',datetime('now','+1 hour', 'start of day'))*1000 AND " +
+            "`end` < strftime('%s',datetime('now', '+1 hour', 'start of day', '+1 day', '-1 second'))*1000")
     fun getDayScheduleOfRoom(id: Int): Flow<List<Schedule>>
 
 

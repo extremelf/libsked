@@ -58,7 +58,10 @@
                 android:id="@+id/history_schedule"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+<<<<<<< HEAD
 
+=======
+>>>>>>> logic
                 android:layout_below="@id/show_occupation"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"

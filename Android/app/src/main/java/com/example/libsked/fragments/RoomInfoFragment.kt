@@ -109,7 +109,14 @@ class RoomInfoFragment : Fragment() {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
                 val hours: MutableList<ScheduleInfo> = mutableListOf()
                 var occurrence = 0
-                for (item in pos + 1 until availablehours.size) {
+                var initialHour = 0
+                for (hour in 0 until availablehours.size){
+                    val separatedInfo = spinnerStart.selectedItem.toString().split(":")
+                    if(availablehours[hour].hour == separatedInfo[0].toInt() && availablehours[hour].minute == separatedInfo[1].toInt()){
+                        initialHour = hour
+                    }
+                }
+                for (item in initialHour + 1 until availablehours.size) {
                     if (!availablehours[item].isOccupied && occurrence < 1) {
                         hours.add(
                             ScheduleInfo(
