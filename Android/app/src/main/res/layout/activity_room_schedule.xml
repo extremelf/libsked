@@ -146,6 +146,16 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/startTv"
                     android:layout_alignParentEnd="true" />
+
+                <Button
+                    android:id="@+id/reservationButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/spinnerEnd"
+                    android:layout_centerHorizontal="true"
+                    android:backgroundTint="@color/white"
+                    android:textColor="@color/black"
+                    android:text="Confirm"/>
             </RelativeLayout>
 
 
