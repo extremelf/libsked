@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/occupied_red"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <TextView
+        android:id="@+id/roomID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Room: X   "
+        android:layout_marginStart="6dp"
+        android:textColor="@color/white"
+        android:layout_alignParentStart="true"
+
+        android:padding="2dp"
+       />
+
+    <TextView
+        android:id="@+id/duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/roomID"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="0dp"
+        android:padding="2dp"
+        android:text="duration: X   "
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/startTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/duration"
+        android:layout_marginTop="1dp"
+        android:layout_marginStart="6dp"
+        android:padding="2dp"
+        android:text="startTime: X   "
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/endTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:layout_toRightOf="@+id/startTime"
+        android:layout_below="@+id/duration"
+        android:text="endTime: X   "
+        android:textColor="@color/white"
+        android:layout_marginLeft="95dp"/>
+
+    <TextView
+        android:id="@+id/flag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:layout_toRightOf="@+id/roomID"
+        android:text="ended"
+        android:textColor="@color/white"
+        android:layout_marginLeft="95dp"
+        android:layout_alignParentEnd="true"/>
+
+</RelativeLayout>

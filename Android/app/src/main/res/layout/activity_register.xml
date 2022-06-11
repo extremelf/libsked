@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F2A900"
-    tools:context=".authentication.register">
+    tools:context=".authentication.Register">
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -33,10 +33,35 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/et2"
+        android:id="@+id/nome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/et1">
+
+
+        <EditText
+            android:id="@+id/et_nome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="#F2A900"
+            android:drawablePadding="10dp"
+            android:hint="Name"
+            android:inputType="text"
+            android:paddingBottom="20dp">
+
+        </EditText>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/et2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nome">
 
 
         <EditText
@@ -151,6 +176,14 @@
         android:layout_centerHorizontal="true"
         app:srcCompat="@drawable/registericon" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>
 
