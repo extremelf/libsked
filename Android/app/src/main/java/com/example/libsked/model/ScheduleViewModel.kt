@@ -12,7 +12,11 @@ class ScheduleViewModel(private val repository: ScheduleRepository) : ViewModel(
 
     fun getRooms(): LiveData<List<Int>> = repository.getRooms().asLiveData()
 
-    fun getRoomScheduleOfDay(roomId: Int): LiveData<List<Schedule>> = repository.getRoomScheduleOfDay(roomId).asLiveData()
+    fun getActiveReservations(personId: String, currentTime: Long): LiveData<List<Schedule>> =
+        repository.getActiveReservations(personId, currentTime).asLiveData()
+
+    fun getRoomScheduleOfDay(roomId: Int): LiveData<List<Schedule>> =
+        repository.getRoomScheduleOfDay(roomId).asLiveData()
 
 
     /*fun isRoomOccupied(roomId: Int): Boolean{

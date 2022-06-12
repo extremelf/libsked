@@ -6,7 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.SpinnerAdapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -75,6 +78,33 @@ class RoomInfoFragment : Fragment() {
             })
         }
 
+        uid?.let { uid ->
+            scheduleViewModel.getActiveReservations(uid, Calendar.getInstance().timeInMillis)
+                .observe(viewLifecycleOwner, Observer {
+                    if (!it.isEmpty()) {
+                        reservationTitle.text = resources.getText(R.string.active_reservation)
+                        spinnerStart.isEnabled = false
+                        spinnerEnd.isEnabled = false
+                        reservationButton.isEnabled = false
+                        Toast.makeText(
+                            requireContext(),
+                            "Active reservation found",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        reservationTitle.text = resources.getText(R.string.make_a_reservation)
+                        spinnerStart.isEnabled = true
+                        spinnerEnd.isEnabled = true
+                        reservationButton.isEnabled = true
+                        Toast.makeText(
+                            requireContext(),
+                            "No active reservation found",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                })
+        }
+
         reservationButton.setOnClickListener {
             val startTimestamp = Timestamp(Calendar.getInstance().timeInMillis)
             val endTimestamp = Timestamp(Calendar.getInstance().timeInMillis)
@@ -109,7 +139,14 @@ class RoomInfoFragment : Fragment() {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
                 val hours: MutableList<ScheduleInfo> = mutableListOf()
                 var occurrence = 0
-                for (item in pos + 1 until availablehours.size) {
+                var initialHour = 0
+                for (hour in 0 until availablehours.size) {
+                    val separatedInfo = spinnerStart.selectedItem.toString().split(":")
+                    if (availablehours[hour].hour == separatedInfo[0].toInt() && availablehours[hour].minute == separatedInfo[1].toInt()) {
+                        initialHour = hour
+                    }
+                }
+                for (item in initialHour + 1 until availablehours.size) {
                     if (!availablehours[item].isOccupied && occurrence < 1) {
                         hours.add(
                             ScheduleInfo(
