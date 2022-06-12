@@ -21,6 +21,8 @@ class ScheduleRepository(
     fun getActiveReservations(personId: String, currentTime: Long): Flow<List<Schedule>> =
         scheduleDao.getActiveReservation(personId, currentTime)
 
+    fun getNotConsumedReservations(personId: String): Flow<Int> =
+        scheduleDao.getNotConsumedReservations(personId)
 
     fun getRoom(id: Int): Flow<RoomTable> = roomDao.getRoom(id)
 
