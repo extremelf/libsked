@@ -27,6 +27,10 @@ interface ScheduleDao {
     )
     fun getDayScheduleOfRoom(id: Int): Flow<List<Schedule>>
 
+
+    @Query("SELECT * FROM ROOM_SCHEDULE WHERE person_id = :userID AND start > :startOfday AND `end` < :endOfday")
+    fun getSchedulexDay(startOfday: Long,endOfday: Long,userID: String): Flow<List<Schedule>>
+
     @Query("SELECT * FROM room_schedule WHERE person_id = :person_id AND start <= :currentTime AND `end` >= :currentTime")
     fun getActiveReservation(person_id: String, currentTime: Long): Flow<List<Schedule>>
 
