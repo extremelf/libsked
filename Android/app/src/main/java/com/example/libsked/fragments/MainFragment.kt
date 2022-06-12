@@ -72,7 +72,6 @@ class MainFragment : Fragment() {
                         PorterDuff.Mode.SRC_IN)
                     room.setOnClickListener {
                         changeToRoomFragment(roomNumber)
-                        Toast.makeText(requireContext(), false.toString(), Toast.LENGTH_SHORT).show()
                     }
                     scheduleViewModel.getRoomSchedule(roomNumber)
                         .observe(viewLifecycleOwner, Observer { data ->
@@ -80,9 +79,6 @@ class MainFragment : Fragment() {
                                 val isOccupied =
                                     schedule.start < Calendar.getInstance().timeInMillis && Calendar.getInstance().timeInMillis < schedule.end
                                 if (isOccupied) {
-                                    room.setOnClickListener {
-                                        Toast.makeText(requireContext(), isOccupied.toString(), Toast.LENGTH_SHORT).show()
-                                    }
                                     room.background.setColorFilter(
                                         Color.RED,
                                         PorterDuff.Mode.SRC_IN

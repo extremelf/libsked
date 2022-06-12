@@ -75,6 +75,24 @@ class RoomInfoFragment : Fragment() {
             })
         }
 
+        uid?.let { uid ->
+            scheduleViewModel.getActiveReservations(uid, Calendar.getInstance().timeInMillis).observe(viewLifecycleOwner, Observer {
+                if(!it.isEmpty()){
+                    reservationTitle.text = resources.getText(R.string.active_reservation)
+                    spinnerStart.isEnabled = false
+                    spinnerEnd.isEnabled = false
+                    reservationButton.isEnabled = false
+                    Toast.makeText(requireContext(), "Active reservation found", Toast.LENGTH_SHORT).show()
+                } else {
+                    reservationTitle.text = resources.getText(R.string.make_a_reservation)
+                    spinnerStart.isEnabled = true
+                    spinnerEnd.isEnabled = true
+                    reservationButton.isEnabled = true
+                    Toast.makeText(requireContext(), "No active reservation found", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
+
         reservationButton.setOnClickListener {
             val startTimestamp = Timestamp(Calendar.getInstance().timeInMillis)
             val endTimestamp = Timestamp(Calendar.getInstance().timeInMillis)
