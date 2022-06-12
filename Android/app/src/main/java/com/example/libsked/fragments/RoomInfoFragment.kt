@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.SpinnerAdapter
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -76,19 +79,32 @@ class RoomInfoFragment : Fragment() {
         }
 
         uid?.let { uid ->
-            scheduleViewModel.getActiveReservations(uid, Calendar.getInstance().timeInMillis).observe(viewLifecycleOwner, Observer {
-                if(!it.isEmpty()){
-                    reservationTitle.text = resources.getText(R.string.active_reservation)
+            scheduleViewModel.getActiveReservations(uid, Calendar.getInstance().timeInMillis)
+                .observe(viewLifecycleOwner, Observer {
+                    if (!it.isEmpty()) {
+                        reservationTitle.text = resources.getText(R.string.active_reservation)
+                        spinnerStart.isEnabled = false
+                        spinnerEnd.isEnabled = false
+                        reservationButton.isEnabled = false
+                    } else {
+                        reservationTitle.text = resources.getText(R.string.make_a_reservation)
+                        spinnerStart.isEnabled = true
+                        spinnerEnd.isEnabled = true
+                        reservationButton.isEnabled = true
+                    }
+                })
+
+            scheduleViewModel.getNotConsumedReservations(uid).observe(viewLifecycleOwner, Observer {
+                if (it >= 1) {
+                    reservationTitle.text = resources.getText(R.string.multiple_reservation)
                     spinnerStart.isEnabled = false
                     spinnerEnd.isEnabled = false
                     reservationButton.isEnabled = false
-                    Toast.makeText(requireContext(), "Active reservation found", Toast.LENGTH_SHORT).show()
                 } else {
                     reservationTitle.text = resources.getText(R.string.make_a_reservation)
                     spinnerStart.isEnabled = true
                     spinnerEnd.isEnabled = true
                     reservationButton.isEnabled = true
-                    Toast.makeText(requireContext(), "No active reservation found", Toast.LENGTH_SHORT).show()
                 }
             })
         }
@@ -128,9 +144,9 @@ class RoomInfoFragment : Fragment() {
                 val hours: MutableList<ScheduleInfo> = mutableListOf()
                 var occurrence = 0
                 var initialHour = 0
-                for (hour in 0 until availablehours.size){
+                for (hour in 0 until availablehours.size) {
                     val separatedInfo = spinnerStart.selectedItem.toString().split(":")
-                    if(availablehours[hour].hour == separatedInfo[0].toInt() && availablehours[hour].minute == separatedInfo[1].toInt()){
+                    if (availablehours[hour].hour == separatedInfo[0].toInt() && availablehours[hour].minute == separatedInfo[1].toInt()) {
                         initialHour = hour
                     }
                 }
@@ -201,9 +217,19 @@ class RoomInfoFragment : Fragment() {
         start: Boolean = true
     ): SpinnerAdapter {
         val availableStarts: MutableList<String> = mutableListOf()
-        for (item in values) {
-            if (!item.isOccupied || !start) {
-                availableStarts.add("${item.hour}:${if (item.minute == 0) "00" else item.minute}")
+        val currentTime = Timestamp(Calendar.getInstance().timeInMillis)
+
+        for (itemPos in 0 until if (start) values.size - 1 else values.size) {
+            if ((values[itemPos].hour >= currentTime.hours && !values[itemPos].isOccupied) || !start) {
+                if ((itemPos + 1) <= values.size) {
+                    if (values[itemPos].hour == currentTime.hours && values[itemPos + 1].minute > currentTime.minutes || !start) {
+                        availableStarts.add("${values[itemPos].hour}:${if (values[itemPos].minute == 0) "00" else values[itemPos].minute}")
+                    } else {
+                        availableStarts.add("${values[itemPos].hour}:${if (values[itemPos].minute == 0) "00" else values[itemPos].minute}")
+                    }
+                } else {
+                    availableStarts.add("${values[itemPos].hour}:${if (values[itemPos].minute == 0) "00" else values[itemPos].minute}")
+                }
             }
         }
         return ArrayAdapter(requireContext(), R.layout.spinner_item, availableStarts)

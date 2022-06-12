@@ -30,6 +30,11 @@ interface ScheduleDao {
     @Query("SELECT * FROM room_schedule WHERE person_id = :person_id AND start <= :currentTime AND `end` >= :currentTime")
     fun getActiveReservation(person_id: String, currentTime: Long): Flow<List<Schedule>>
 
+    @Query("SELECT COUNT(*) FROM room_schedule WHERE person_id = :person_id AND" +
+            " start > strftime('%s', datetime('now', '+1 hour'))*1000 AND" +
+            " `end` < strftime('%s', datetime('now', '+1 hour', 'start of day', '+1 day', '-1 second'))*1000")
+    fun getNotConsumedReservations(person_id: String): Flow<Int>
+
     @Query("SELECT DISTINCT(room_id) as rooms FROM room_schedule")
     fun getRooms(): Flow<List<Int>>
 

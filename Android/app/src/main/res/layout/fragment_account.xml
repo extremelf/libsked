@@ -54,7 +54,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/et_mame"
+                    android:id="@+id/et_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
@@ -87,6 +87,7 @@
                         android:textStyle="bold" />
 
                     <Button
+                        android:id="@+id/logoutButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
@@ -102,6 +103,8 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/editPasswordLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/main_features"
@@ -157,5 +160,13 @@
 
         </RelativeLayout>
     </ScrollView>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>
