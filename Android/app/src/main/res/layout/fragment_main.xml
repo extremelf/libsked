@@ -17,7 +17,8 @@
         android:clickable="true"
         android:focusable="true"
         android:gravity="center"
-        android:text="Room 1" />
+        android:textColor="@color/black"
+        android:text="@string/room_1" />
 
     <TextView
         android:id="@+id/room2"
@@ -27,6 +28,7 @@
         android:layout_marginTop="50dp"
         android:background="@drawable/square"
         android:gravity="center"
+        android:textColor="@color/black"
         android:text="@string/room_2" />
 
 
@@ -37,6 +39,7 @@
         android:layout_below="@id/room1"
         android:layout_toLeftOf="@id/hallway"
         android:background="@drawable/square"
+        android:textColor="@color/black"
         android:gravity="center"
         android:text="@string/room_3" />
 
@@ -48,6 +51,7 @@
         android:layout_below="@id/room2"
         android:layout_toRightOf="@id/hallway"
         android:background="@drawable/square"
+        android:textColor="@color/black"
         android:gravity="center"
         android:text="@string/room_4"
 
@@ -63,19 +67,36 @@
         />
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/library_icon"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/library"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        app:drawableTopCompat="@drawable/ic_baseline_library_books_24"
-        android:drawablePadding="5dp"
         android:layout_below="@id/hallway"
-        android:layout_marginTop="100dp"
-        android:textSize="30sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="65dp"
+        android:padding="20dp"
+        android:background="@drawable/square"
+        android:backgroundTint="#FF9800"
+        android:drawablePadding="5dp"
+        android:text="@string/library"
+        android:textAlignment="center"
         android:textColor="@color/black"
-        />
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:drawableTopCompat="@drawable/ic_baseline_library_books_24" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/library_icon"
+        android:layout_margin="10dp"
+        android:paddingTop="10dp"
+        android:linksClickable="true"
+        android:text="@string/biblioteca_barbosa_romero_da_escola_superior_de_tecnologia_e_gest_o_ipvc"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
 
 </RelativeLayout>
