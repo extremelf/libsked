@@ -17,6 +17,7 @@ import com.example.libsked.appplication.ScheduleApplication
 import com.example.libsked.model.ScheduleViewModel
 import com.example.libsked.model.ScheduleViewModelFactory
 import kotlinx.android.synthetic.main.fragment_appointment.*
+import java.sql.Timestamp
 import java.util.*
 
 
@@ -68,11 +69,11 @@ class AppointmentFragment : Fragment() {
         }
 
 
-        val startOfDay =  Calendar.getInstance().time
+        var startOfDay =  Calendar.getInstance().time
         startOfDay.hours = 0
 
 
-        val endOfDay =  Calendar.getInstance().time
+        var endOfDay =  Calendar.getInstance().time
         endOfDay.hours = 23
         endOfDay.minutes = 59
         Toast.makeText(requireContext(), scheduleViewModel.getScheduleOnXDay(startOfDay.time,endOfDay.time,uid.toString()).toString(), Toast.LENGTH_SHORT).show()
@@ -80,6 +81,22 @@ class AppointmentFragment : Fragment() {
         scheduleViewModel.getScheduleOnXDay(startOfDay.time,endOfDay.time,uid.toString()).observe(viewLifecycleOwner, Observer { item ->
             historyAdapter.changeList(item)
         })
+
+        btn_apply.setOnClickListener{
+            val day = calendar.date
+            startOfDay = Timestamp(day)
+            startOfDay.hours = 0
+
+            endOfDay = Timestamp(day)
+            endOfDay.hours = 23
+            endOfDay.minutes = 59
+
+
+
+            scheduleViewModel.getScheduleOnXDay(startOfDay.time,endOfDay.time,uid.toString()).observe(viewLifecycleOwner, Observer { item ->
+                historyAdapter.changeList(item)
+            })
+        }
 
 
 
