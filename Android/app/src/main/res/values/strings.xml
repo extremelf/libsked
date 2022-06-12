@@ -16,9 +16,9 @@
     <string name="room_1">Room 1</string>
     <string name="submit">Submit</string>
     <string name="logout">Logout</string>
-    <string name="name">Name:</string>
-    <string name="number">Number:</string>
-    <string name="email">Email:</string>
+    <string name="name">Name: %1$s</string>
+    <string name="number">Number: %1$s</string>
+    <string name="email">Email: %1$s</string>
     <string name="sign_in">Sign In</string>
     <string name="log_in">Log In</string>
     <string name="forgot_password">Forgot Password</string>
