@@ -25,4 +25,7 @@
     <string name="create_account">Create Account</string>
     <string name="email_sign_in">Email</string>
     <string name="password_sign_in">Password</string>
+    <string name="mock_string">What is this?</string>
+    <string name="continue_continue">Continue</string>
+    <string name="remember_password">Remember Password!</string>
 </resources>
