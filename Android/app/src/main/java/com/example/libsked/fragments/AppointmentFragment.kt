@@ -17,8 +17,6 @@ import com.example.libsked.appplication.ScheduleApplication
 import com.example.libsked.model.ScheduleViewModel
 import com.example.libsked.model.ScheduleViewModelFactory
 import kotlinx.android.synthetic.main.fragment_appointment.*
-import java.time.LocalDateTime
-import java.time.LocalTime
 import java.util.*
 
 
@@ -33,7 +31,7 @@ private const val SHARED_PREF_NAME = "USERINFO"
  */
 class AppointmentFragment : Fragment() {
 
-    private lateinit var scheduleAdapter: HistoryLineAdapter
+    private lateinit var historyAdapter: HistoryLineAdapter
     private val scheduleViewModel: ScheduleViewModel by activityViewModels{
         ScheduleViewModelFactory((requireActivity().application as ScheduleApplication).repository)
     }
@@ -61,16 +59,17 @@ class AppointmentFragment : Fragment() {
         val sharedPref: SharedPreferences = requireContext().getSharedPreferences(com.example.libsked.authentication.SHARED_PREF_NAME, Context.MODE_PRIVATE)
 
         val uid = sharedPref.getString("USERID", "")
-        scheduleAdapter = HistoryLineAdapter()
 
-        val layoutManager = LinearLayoutManager(requireContext())
-        history_recycler.adapter = scheduleAdapter
-        history_recycler.layoutManager = layoutManager
+        historyAdapter = HistoryLineAdapter()
+        history_recycler.apply {
+            setHasFixedSize(false)
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = historyAdapter
+        }
 
 
         val startOfDay =  Calendar.getInstance().time
         startOfDay.hours = 0
-
 
 
         val endOfDay =  Calendar.getInstance().time
@@ -79,10 +78,8 @@ class AppointmentFragment : Fragment() {
         Toast.makeText(requireContext(), scheduleViewModel.getScheduleOnXDay(startOfDay.time,endOfDay.time,uid.toString()).toString(), Toast.LENGTH_SHORT).show()
 
         scheduleViewModel.getScheduleOnXDay(startOfDay.time,endOfDay.time,uid.toString()).observe(viewLifecycleOwner, Observer { item ->
-            scheduleAdapter.changeList(item)
+            historyAdapter.changeList(item)
         })
-
-
 
 
 
