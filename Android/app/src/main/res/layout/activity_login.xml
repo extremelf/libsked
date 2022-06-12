@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F2A900"
+    android:background="#FFFFFF"
     tools:context=".authentication.Login">
-
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -22,11 +21,12 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="260dp"
             android:layout_marginRight="20dp"
-            android:background="#F2A900"
+            android:background="@drawable/edit_text"
             android:drawablePadding="10dp"
-            android:hint="Email"
+            android:hint="@string/email_sign_in"
             android:inputType="textEmailAddress"
-            android:paddingBottom="20dp">
+            android:paddingBottom="20dp"
+            android:textColorHint="@color/black">
 
         </EditText>
 
@@ -52,10 +52,14 @@
             android:layout_marginTop="11dp"
             android:layout_marginRight="20dp"
             android:drawablePadding="10dp"
-            android:hint="Password"
+            android:hint="@string/password_sign_in"
             android:inputType="textPassword"
-            android:background="#F2A900"
-            android:paddingBottom="20dp">
+            android:background="@drawable/edit_text"
+            android:backgroundTint="#FF9800"
+            android:paddingBottom="20dp"
+            android:textColorHint="@color/black"
+            >
+
 
         </EditText>
 
@@ -69,11 +73,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/et2"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="25dp"
-        android:text="Forgot Password"
-        android:textColor="#8F8686"
-        android:textSize="15dp" />
+        android:text="@string/forgot_password"
+        android:textColor="#9C27B0"
+        android:textSize="15sp" />
 
 
     <TextView
@@ -82,11 +86,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageView"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:text="Sign In"
+        android:text="@string/sign_in"
         android:textColor="#000000"
-        android:textSize="30dp" />
+        android:textSize="30sp"
+        android:textStyle="bold"
+        />
 
 
     <Button
@@ -98,11 +104,11 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="113dp"
         android:layout_marginRight="20dp"
-        android:background="#3D56F0"
-        android:text="Log In"
+        android:backgroundTint="@color/black"
+        android:text="@string/log_in"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
     <TextView
 
@@ -111,27 +117,32 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/btn_login"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="26dp"
-        android:text="Create Account"
-        android:textColor="#8F8686"
-        android:textSize="15dp" />
+        android:text="@string/create_account"
+        android:textColor="#03A9F4"
+        android:textSize="15sp"
+        />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="100dp"
+        android:layout_width="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_height="130dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="28dp"
+        android:background="@drawable/square"
+        android:backgroundTint="#FF9800"
         app:srcCompat="@drawable/usericon" />
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/imageView2"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="15dp"
-        app:srcCompat="@drawable/arrowicon" />
+        app:srcCompat="@drawable/arrowicon" />-->
 
     <ProgressBar
         android:id="@+id/progressBar"
