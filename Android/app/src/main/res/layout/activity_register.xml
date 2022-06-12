@@ -23,7 +23,8 @@
         android:id="@+id/et1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="30dp">
+        android:paddingVertical="30dp"
+        android:theme="@style/MyTextInputLayout_overlay">
 
         <EditText
 
@@ -47,7 +48,8 @@
         android:id="@+id/nome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/et1">
+        android:layout_below="@+id/et1"
+        android:theme="@style/MyTextInputLayout_overlay">
 
 
         <EditText
@@ -72,7 +74,8 @@
         android:id="@+id/et2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/nome">
+        android:layout_below="@+id/nome"
+        android:theme="@style/MyTextInputLayout_overlay">
 
 
         <EditText
@@ -102,7 +105,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/et2"
-        app:passwordToggleEnabled="true">
+        app:passwordToggleEnabled="true"
+        android:theme="@style/MyTextInputLayout_overlay">
 
 
         <EditText
@@ -130,7 +134,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/et3"
-        app:passwordToggleEnabled="true">
+        app:passwordToggleEnabled="true"
+        android:theme="@style/MyTextInputLayout_overlay">
 
 
         <EditText
@@ -175,10 +180,18 @@
             app:srcCompat="@drawable/registericon" />
 
 
-
-
-
     </LinearLayout>
+
+
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="52dp"
+        android:background="@drawable/ic_baseline_arrow_back_24"/>
+
+
+
 
     <Button
 
