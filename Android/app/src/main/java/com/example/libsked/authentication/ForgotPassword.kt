@@ -5,15 +5,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import com.example.libsked.R
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_register.*
 
 class ForgotPassword : AppCompatActivity() {
 
     lateinit var Email: EditText
     private lateinit var btnReset: Button
     private lateinit var btnLogin: Button
+    lateinit var BackButton: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +26,13 @@ class ForgotPassword : AppCompatActivity() {
         Email = findViewById(R.id.et_email)
         btnReset = findViewById(R.id.bt_continue)
         btnLogin = findViewById(R.id.bt_signup)
+        BackButton = findViewById(R.id.back_button)
+
+        // Back Button
+        BackButton.setOnClickListener {
+            val intent = Intent(this, Login::class.java)
+            startActivity(intent)
+        }
 
         btnReset.setOnClickListener {
 

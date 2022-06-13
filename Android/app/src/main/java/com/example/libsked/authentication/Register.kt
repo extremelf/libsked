@@ -51,11 +51,11 @@ class Register : AppCompatActivity() {
             registerUser()
         }
 
-        // Mudar de Página Registo para Página Login
-        /* RedirectLogin.setOnClickListener {
+        // Back Button
+        BackButton.setOnClickListener {
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
-        } */
+        }
 
     }
 
