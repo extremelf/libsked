@@ -8,10 +8,54 @@
     tools:context=".authentication.Login">
 
 
+    <View
+        android:id="@+id/topView"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/colorPrimary"/>
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@+id/topView"
+        android:background="@drawable/ic_wave" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+
+        <TextView
+
+            android:id="@+id/tv_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Login"
+            android:textColor="#000000"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="60dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="240dp"
+            app:srcCompat="@drawable/usericon" />
+
+
+    </LinearLayout>
+
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/et1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:boxBackgroundColor="@android:color/transparent"
+        android:theme="@style/MyTextInputLayout_overlay">
 
         <EditText
 
@@ -21,13 +65,11 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="260dp"
             android:layout_marginRight="20dp"
-            android:background="@drawable/edit_text"
+            android:autofillHints="emailAddress"
             android:drawablePadding="10dp"
             android:hint="@string/email_sign_in"
             android:inputType="textEmailAddress"
-            android:paddingBottom="20dp"
-            android:autofillHints="emailAddress"
-            android:textColorHint="@color/black">
+            android:paddingBottom="20dp">
 
         </EditText>
 
@@ -40,7 +82,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/et1"
-        app:passwordToggleEnabled="true">
+        app:passwordToggleEnabled="true"
+        app:boxBackgroundColor="@android:color/transparent">
 
 
         <EditText
@@ -55,8 +98,6 @@
             android:drawablePadding="10dp"
             android:hint="@string/password_sign_in"
             android:inputType="textPassword"
-            android:background="@drawable/edit_text"
-            android:backgroundTint="#FF9800"
             android:paddingBottom="20dp"
             android:textColorHint="@color/black"
             android:autofillHints="password"
@@ -78,23 +119,8 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="25dp"
         android:text="@string/forgot_password"
-        android:textColor="#9C27B0"
+        android:textColor="@color/colorPrimary"
         android:textSize="15sp" />
-
-
-    <TextView
-
-        android:id="@+id/tv_sign"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/sign_in"
-        android:textColor="#000000"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        />
 
 
     <Button
@@ -106,7 +132,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="113dp"
         android:layout_marginRight="20dp"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/colorPrimary"
         android:text="@string/log_in"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
@@ -122,30 +148,9 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="26dp"
         android:text="@string/create_account"
-        android:textColor="#03A9F4"
-        android:textSize="15sp"
-        />
+        android:textColor="@color/colorPrimary"
+        android:textSize="15sp" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="130dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/square"
-        android:backgroundTint="#FF9800"
-        app:srcCompat="@drawable/usericon"
-        android:contentDescription="@string/mock_string"/>
-
-    <!--<ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
-        app:srcCompat="@drawable/arrowicon" />-->
 
     <ProgressBar
         android:id="@+id/progressBar"
