@@ -17,12 +17,12 @@ const val SHARED_PREF_NAME = "USERINFO"
 
 class Login : AppCompatActivity() {
 
-    lateinit var Email: EditText
-    private lateinit var Pass: EditText
+    lateinit var email: EditText
+    private lateinit var pass: EditText
     lateinit var btnLogin: Button
-    private lateinit var RedirectRegister: TextView
-    lateinit var ForgotPass: TextView
-    lateinit var ProgressBar: ProgressBar
+    private lateinit var redirectRegister: TextView
+    lateinit var forgotPass: TextView
+    lateinit var progressBar: ProgressBar
 
     // Criar FireBaseAuth
     lateinit var auth: FirebaseAuth
@@ -43,12 +43,12 @@ class Login : AppCompatActivity() {
         }
 
         // Ligar às Views do XML
-        Email = findViewById(R.id.et_email)
-        Pass = findViewById(R.id.et_password)
+        email = findViewById(R.id.et_email)
+        pass = findViewById(R.id.et_password)
         btnLogin = findViewById(R.id.btn_login)
-        RedirectRegister = findViewById(R.id.tv_create_account)
-        ForgotPass = findViewById(R.id.tv_forgot_password)
-        ProgressBar = findViewById(R.id.progressBar)
+        redirectRegister = findViewById(R.id.tv_create_account)
+        forgotPass = findViewById(R.id.tv_forgot_password)
+        progressBar = findViewById(R.id.progressBar)
 
         // Inicializar Auth
         auth = FirebaseAuth.getInstance()
@@ -57,14 +57,14 @@ class Login : AppCompatActivity() {
             login()
         }
 
-       RedirectRegister.setOnClickListener {
+       redirectRegister.setOnClickListener {
             val intent = Intent(this, Register::class.java)
             startActivity(intent)
             // finish() para acabar a atividade
             finish()
        }
 
-        ForgotPass.setOnClickListener {
+        forgotPass.setOnClickListener {
             val intent = Intent(this, ForgotPassword::class.java)
             startActivity(intent)
             finish()
@@ -72,8 +72,8 @@ class Login : AppCompatActivity() {
     }
 
     private fun login() {
-        val email = Email.text.toString()
-        val pass = Pass.text.toString()
+        val email1 = email.text.toString()
+        val pass1 = pass.text.toString()
 
         progressBar.visibility = View.VISIBLE
 
@@ -81,8 +81,8 @@ class Login : AppCompatActivity() {
         // usando o auth do Firebase
         // Se for com sucesso, mostra um Toast
 
-        if(email.isNotEmpty() && pass.isNotEmpty()){
-            auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(this) {
+        if(email1.isNotEmpty() && pass1.isNotEmpty()){
+            auth.signInWithEmailAndPassword(email1, pass1).addOnCompleteListener(this) {
                 if (it.isSuccessful) {
                     Toast.makeText(this, "Successfully Logged In!", Toast.LENGTH_SHORT).show()
                     val id = auth.currentUser?.uid
@@ -100,9 +100,8 @@ class Login : AppCompatActivity() {
             }
         } else {
             progressBar.visibility = View.GONE
-            Email.error = "Invalid Email"
-            et1.helperText = "Invalid Email"
-            Pass.error = "Invalid Password"
+            email.error = "Invalid Email"
+            pass.error = "Invalid Password"
         }
     }
 

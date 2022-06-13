@@ -21,13 +21,13 @@ class Register : AppCompatActivity() {
 
     private lateinit var database : DatabaseReference
 
-    lateinit var Email: EditText
-    lateinit var Nome: EditText
-    lateinit var NumeroAluno: EditText
-    private lateinit var Pass: EditText
-    lateinit var ConfPass: EditText
+    lateinit var email: EditText
+    lateinit var nome: EditText
+    lateinit var numeroAluno: EditText
+    private lateinit var pass: EditText
+    lateinit var confPass: EditText
     private lateinit var btnRegister: Button
-    lateinit var BackButton: ImageButton
+    lateinit var backButton: ImageButton
 
     private lateinit var auth: FirebaseAuth
 
@@ -36,13 +36,13 @@ class Register : AppCompatActivity() {
         setContentView(R.layout.activity_register)
 
         // Ligar às Views do XML
-        Email = findViewById(R.id.et_email)
-        Nome = findViewById(R.id.et_nome)
-        NumeroAluno = findViewById(R.id.et_number)
-        Pass = findViewById(R.id.et_password)
-        ConfPass = findViewById(R.id.et_passwordRepeat)
+        email = findViewById(R.id.et_email)
+        nome = findViewById(R.id.et_nome)
+        numeroAluno = findViewById(R.id.et_number)
+        pass = findViewById(R.id.et_password)
+        confPass = findViewById(R.id.et_passwordRepeat)
         btnRegister = findViewById(R.id.btn_register)
-        BackButton = findViewById(R.id.back_button)
+        backButton = findViewById(R.id.back_button)
 
         // Inicializar Auth
         auth = Firebase.auth
@@ -52,7 +52,7 @@ class Register : AppCompatActivity() {
         }
 
         // Back Button
-        BackButton.setOnClickListener {
+        backButton.setOnClickListener {
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
         }
@@ -61,27 +61,30 @@ class Register : AppCompatActivity() {
 
     private fun registerUser() {
 
-        val email = Email.text.toString()
-        val name = Nome.text.toString()
-        val number = NumeroAluno.text.toString()
-        val pass = Pass.text.toString()
-        val confirmPassword = ConfPass.text.toString()
+        val email1 = email.text.toString()
+        val name1 = nome.text.toString()
+        val number1 = numeroAluno.text.toString()
+        val pass1 = pass.text.toString()
+        val confirmPassword1 = confPass.text.toString()
 
         // Verificar se existem campos não preenchidos
-        if (email.isBlank() || name.isBlank() || pass.isBlank() || confirmPassword.isBlank()) {
-            Toast.makeText(this, "Fields can't be blank", Toast.LENGTH_SHORT).show()
+        if (email1.isBlank() && name1.isBlank() && pass1.isBlank() && confirmPassword1.isBlank()) {
+            email.error = "Email Can´te Be Blank!"
+            nome.error = "Name Can´t Be Blank!"
+            pass.error = "Password Can´t Be Blank!"
+            confPass.error = "Repeat Password Can´t Be Blank!"
             return
         }
 
         // Verificar se tem 6 caracteres
-        if (pass.length < 6){
-            Toast.makeText(this, "Password Must Be 6 Characters Minimum!", Toast.LENGTH_SHORT).show()
+        if (pass1.length < 6){
+            pass.error = "Password Must Be 6 Characters Minimum!"
+            return
         }
 
         // Verificar se as Passwords Coincidem
-        if (pass != confirmPassword) {
-            Toast.makeText(this, "Password and Confirm Password do not match", Toast.LENGTH_SHORT)
-                .show()
+        if (pass1 != confirmPassword1) {
+            confPass.error = "Password and Repeat Password Must Coincide!"
             return
         }
 
@@ -90,11 +93,11 @@ class Register : AppCompatActivity() {
         // Se tudo estiver correto
         // Chamamos createUserWithEmailAndPassword
         // Usando Auth passamos o email e a password
-        auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(this) {
+        auth.createUserWithEmailAndPassword(email1, pass1).addOnCompleteListener(this) {
             if (it.isSuccessful) {
                 val id = auth.currentUser?.uid
                 database = FirebaseDatabase.getInstance().getReference("users")
-                val user = Users(name, email, number)
+                val user = Users(name1, email1, number1)
                 if (id != null) {
                     database.child(id).setValue(user)
                 }
