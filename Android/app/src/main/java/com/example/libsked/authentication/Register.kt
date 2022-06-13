@@ -86,10 +86,12 @@ class Register : AppCompatActivity() {
         // Usando Auth passamos o email e a password
         auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(this) {
             if (it.isSuccessful) {
-
+                val id = auth.currentUser?.uid
                 database = FirebaseDatabase.getInstance().getReference("users")
                 val user = Users(name, email, number, pass)
-                database.child(name).setValue(user)
+                if (id != null) {
+                    database.child(id).setValue(user)
+                }
 
                 Toast.makeText(this, "User Registered Successfully", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, Login::class.java)
