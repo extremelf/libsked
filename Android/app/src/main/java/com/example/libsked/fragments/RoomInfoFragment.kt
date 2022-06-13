@@ -84,9 +84,12 @@ class RoomInfoFragment : Fragment() {
                                         reservationButton.setOnClickListener { view ->
                                             extendReservationListener(it[0])
                                         }
+                                        reservationButton.visibility = View.VISIBLE
+                                        reservationButton.isEnabled = true
                                     } else {
                                         reservationTitle.text = resources.getText(R.string.active_reservation)
                                         reservationButton.isEnabled = false
+                                        reservationButton.visibility = View.GONE
                                     }
                                     startTv.visibility = View.GONE
                                     startTv.isEnabled = false
@@ -96,13 +99,17 @@ class RoomInfoFragment : Fragment() {
                                     spinnerStart.isEnabled = false
                                     spinnerEnd.visibility = View.GONE
                                     spinnerEnd.isEnabled = false
-                                    reservationButton.visibility = View.GONE
 
                                 } else {
                                     reservationTitle.text = resources.getText(R.string.make_a_reservation)
                                     spinnerStart.isEnabled = true
                                     spinnerEnd.isEnabled = true
                                     reservationButton.isEnabled = true
+
+                                    spinnerStart.visibility = View.VISIBLE
+                                    spinnerEnd.visibility = View.VISIBLE
+                                    startTv.visibility = View.VISIBLE
+                                    endTv.visibility = View.VISIBLE
                                 }
                             })
 
@@ -185,20 +192,18 @@ class RoomInfoFragment : Fragment() {
     private fun defaultReservationListener(view: View) {
         val uid = sharedPref.getString("USERID", "")
 
-        val startTimestamp = Timestamp(Calendar.getInstance().timeInMillis)
-        val endTimestamp = Timestamp(Calendar.getInstance().timeInMillis)
+        val startTimestamp = Calendar.getInstance()
+        val endTimestamp = Calendar.getInstance()
         val spinnerEndTime = spinnerEnd.selectedItem.toString().split(":")
         val spinnerStartTime = spinnerStart.selectedItem.toString().split(":")
 
-        endTimestamp.hours = spinnerEndTime[0].toInt()
-        endTimestamp.minutes = spinnerEndTime[1].toInt()
-        endTimestamp.seconds = 0
-        endTimestamp.nanos = 0
+        endTimestamp.set(Calendar.HOUR_OF_DAY,spinnerEndTime[0].toInt())
+        endTimestamp.set(Calendar.MINUTE,spinnerEndTime[1].toInt())
+        endTimestamp.set(Calendar.SECOND, 0)
 
-        startTimestamp.hours = spinnerStartTime[0].toInt()
-        startTimestamp.minutes = spinnerStartTime[1].toInt()
-        startTimestamp.seconds = 0
-        startTimestamp.nanos = 0
+        startTimestamp.set(Calendar.HOUR_OF_DAY, spinnerStartTime[0].toInt())
+        startTimestamp.set(Calendar.MINUTE, spinnerStartTime[1].toInt())
+        startTimestamp.set(Calendar.SECOND, 0)
 
 
         roomNumber?.let { it2 ->
@@ -207,8 +212,8 @@ class RoomInfoFragment : Fragment() {
                     creation_timestamp = Calendar.getInstance().timeInMillis,
                     personId = it,
                     roomId = it2,
-                    start = startTimestamp.time,
-                    end = endTimestamp.time
+                    start = startTimestamp.timeInMillis,
+                    end = endTimestamp.timeInMillis
                 )
             }
         }?.let { it2 -> scheduleViewModel.insert(it2) }
