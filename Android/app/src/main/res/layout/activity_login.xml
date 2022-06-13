@@ -83,7 +83,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/et1"
         app:passwordToggleEnabled="true"
-        app:boxBackgroundColor="@android:color/transparent">
+        app:boxBackgroundColor="@android:color/transparent"
+        android:theme="@style/MyTextInputLayout_overlay">
 
 
         <EditText

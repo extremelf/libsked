@@ -1,100 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.AppointmentFragment"
-    android:background="#FFFFFF">
+    android:background="#FFFFFF"
+    tools:context=".fragments.AppointmentFragment">
 
 
-
-    <LinearLayout
-        android:id="@+id/ll0"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:text="@string/appointment"
-            android:textColor="#FF9800"
-            android:textStyle="italic|bold"
-            android:textSize="30sp">
-        </TextView>
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/ll"
-        android:layout_marginTop="28dp"
-        android:background="@drawable/shape"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/ll0">
-
-        <CalendarView
-            android:id="@+id/calendar"
-            android:layout_width="wrap_content"
-            android:layout_height="300dp">
-
-
-        </CalendarView>
-
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_below="@+id/ll"
-        android:layout_centerHorizontal="true"
-        android:layout_marginVertical="30dp"
-        android:background="#FFF">
+        android:layout_height="match_parent">
 
 
         <LinearLayout
-            android:id="@+id/ll2"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="26dp"
-            android:layout_marginTop="20dp"
-            android:background="#F4F0F0"
-            android:paddingTop="10dp">
+            android:id="@+id/ll0"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
 
-            <ScrollView
-                android:id="@+id/time_schedule"
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="145dp"
-                android:layout_below="@id/show_occupation"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="100dp">
-
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/history_recycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-
-            </ScrollView>
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:text="@string/appointment"
+                android:textColor="#FF9800"
+                android:textSize="30sp"
+                android:textStyle="italic|bold"></TextView>
 
         </LinearLayout>
 
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_below="@+id/ll0"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/shape">
 
 
+            <CalendarView
+                android:id="@+id/calendar"
+                android:layout_width="wrap_content"
+                android:layout_height="300dp">
 
 
-</RelativeLayout>
+            </CalendarView>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll2"
+            android:layout_width="310dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="20dp"
+            android:paddingTop="10dp">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/history_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</ScrollView>
