@@ -3,70 +3,72 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:background="@drawable/square">
 
     <LinearLayout
         android:id="@+id/yep_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:orientation="vertical">
 
 
-        <TextView
-            android:id="@+id/roomID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:layout_marginBottom="5dp"
-            android:padding="2dp"
-            android:text="Room: X"
-            android:textColor="@color/black" />
+    <TextView
+        android:id="@+id/roomID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Room: X   "
+        android:layout_marginStart="6dp"
+        android:textColor="@color/black"
+        android:layout_alignParentStart="true"
+        android:padding="2dp"/>
 
-        <TextView
-            android:id="@+id/duration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="5dp"
-            android:padding="2dp"
-            android:text="Duration: X"
-            android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/roomID"
+        android:layout_marginStart="6dp"
+        android:textColor="@color/black"
+        android:layout_marginEnd="0dp"
+        android:padding="2dp"
+        android:text="duration: X   "/>
+
 
         <TextView
             android:id="@+id/startTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginStart="160dp"
+            android:layout_marginTop="-47dp"
             android:padding="2dp"
-            android:text="Start Time: X"
+            android:text="startTime: X   "
             android:textColor="@color/black" />
 
-    <TextView
 
-        android:id="@+id/endTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="2dp"
-        android:text="End Time: X"
-        android:layout_marginStart="6dp"
-        android:textColor="@color/black" />
+        <TextView
 
-    <TextView
-        android:id="@+id/flag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="2dp"
-        android:text="Ended"
-        android:layout_marginStart="6dp"
-        android:layout_marginBottom="5dp"
-        android:textColor="@color/black" />
+            android:id="@+id/endTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/startTime"
+            android:layout_marginLeft="160dp"
+            android:layout_toRightOf="@+id/duration"
+            android:padding="2dp"
+            android:text="endTime: X   "
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/flag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/endTime"
+            android:layout_marginLeft="80dp"
+            android:layout_toRightOf="@+id/roomID"
+            android:padding="2dp"
+            android:text="ended"
+            android:textColor="@color/black" />
+
     </LinearLayout>
-
-
-
 
 </RelativeLayout>
