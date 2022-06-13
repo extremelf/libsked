@@ -1,0 +1,12 @@
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="50dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:textStyle="bold"
+    android:background="@color/white"
+    android:text="19:30"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp"
+    android:textColor="@color/black"
+    />
