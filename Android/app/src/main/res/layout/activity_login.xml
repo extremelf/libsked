@@ -12,7 +12,7 @@
         android:id="@+id/topView"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@color/colorPrimary" />
+        android:background="@color/colorPrimary"/>
 
     <View
         android:id="@+id/view3"
