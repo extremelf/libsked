@@ -6,41 +6,49 @@
     android:layout_height="match_parent"
     tools:context=".fragments.AccountFragment">
 
-    <TextView
-        android:id="@+id/username_account"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="30dp"
-        android:background="@drawable/square"
-        android:backgroundTint="#FF9800"
-        android:gravity="center"
-        android:padding="5dp"
-        android:text="@string/username"
-        android:textColor="@color/black"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        app:drawableBottomCompat="@drawable/ic_baseline_person_outline_24"
-        app:drawableTint="@color/black"
 
-        />
 
     <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/username_account">
+        android:layout_height="wrap_content">
+
+
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
             <LinearLayout
                 android:id="@+id/main_features"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="30dp"
                 android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/username_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="30dp"
+                    android:background="@drawable/square"
+                    android:backgroundTint="#FF9800"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/username"
+                    android:textColor="@color/black"
+
+                    android:textSize="40sp"
+                    android:textStyle="bold"
+                    app:drawableBottomCompat="@drawable/ic_baseline_person_outline_24"
+                    app:drawableTint="@color/black" />
 
 
                 <TextView
@@ -57,19 +65,19 @@
                     android:id="@+id/et_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
                     android:layout_marginStart="10dp"
-                    android:textStyle="bold"
-                    android:text="@string/name" />
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/name"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/et_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
                     android:layout_marginStart="10dp"
-                    android:textStyle="bold"
-                    android:text="@string/number" />
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/number"
+                    android:textStyle="bold" />
 
                 <RelativeLayout
                     android:id="@+id/buttons_Profile"
@@ -106,44 +114,80 @@
                 android:visibility="gone"
                 android:id="@+id/editPasswordLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_below="@id/main_features"
                 android:layout_margin="30dp"
-                android:orientation="vertical"
+                android:orientation="vertical">
 
-                >
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="-6dp"
+                    android:theme="@style/MyTextInputLayout_overlay"
+                    app:boxBackgroundColor="@android:color/transparent"
+                    app:passwordToggleEnabled="true">
+
+                    <EditText
+
+                        android:id="@+id/et_oldpass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:drawablePadding="10dp"
+                        android:hint="@string/old_password"
+                        android:inputType="textPassword" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
 
-                <EditText
-
-                    android:id="@+id/et_oldpass"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:hint="@string/old_password"
-                    android:inputType="textPassword" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:theme="@style/MyTextInputLayout_overlay"
+                    app:passwordToggleEnabled="true"
+                    app:boxBackgroundColor="@android:color/transparent">
 
                 <EditText
                     android:id="@+id/et_newpass"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
+                    android:layout_marginRight="20dp"
+                    android:drawablePadding="10dp"
                     android:hint="@string/new_password"
                     android:inputType="textPassword" />
 
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:theme="@style/MyTextInputLayout_overlay"
+                    app:passwordToggleEnabled="true"
+                    app:boxBackgroundColor="@android:color/transparent">
+
                 <EditText
                     android:id="@+id/et_newpass2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
+                    android:layout_marginRight="20dp"
+                    android:drawablePadding="10dp"
                     android:hint="@string/new_password_confirm"
                     android:inputType="textPassword" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/submit_password"
-                    >
+                    android:id="@+id/submit_password">
 
                 <Button
                     android:id="@+id/submit_password_change"

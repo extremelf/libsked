@@ -4,5 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:textStyle="bold"
-    android:background="#F2A900"
-    android:text="19:30"/>
+    android:background="@color/white"
+    android:text="19:30"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp"
+    android:textColor="@color/black"
+    />
