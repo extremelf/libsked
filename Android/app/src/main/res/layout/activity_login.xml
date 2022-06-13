@@ -26,6 +26,7 @@
             android:hint="@string/email_sign_in"
             android:inputType="textEmailAddress"
             android:paddingBottom="20dp"
+            android:autofillHints="emailAddress"
             android:textColorHint="@color/black">
 
         </EditText>
@@ -58,6 +59,7 @@
             android:backgroundTint="#FF9800"
             android:paddingBottom="20dp"
             android:textColorHint="@color/black"
+            android:autofillHints="password"
             >
 
 
@@ -127,14 +129,15 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
         android:layout_height="130dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="28dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/square"
         android:backgroundTint="#FF9800"
-        app:srcCompat="@drawable/usericon" />
+        app:srcCompat="@drawable/usericon"
+        android:contentDescription="@string/mock_string"/>
 
     <!--<ImageView
         android:id="@+id/imageView2"
