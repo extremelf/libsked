@@ -86,12 +86,9 @@
             android:layout_below="@id/info_room"
             android:gravity="center"
             android:text="@string/occupation"
-            android:textColor="#FF9800"
             android:textSize="30sp"
-            android:textStyle="bold"
-
-
-            />
+            android:textColor="#FF9800"
+            android:textStyle="bold|italic"/>
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -131,10 +128,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/reservationTitle"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
+                android:textColor="@color/black"
                 android:text="@string/select_start_time"
-                android:textColor="@color/black" />
+                android:layout_marginStart="10dp"/>
 
             <Spinner
                 android:id="@+id/spinnerStart"
