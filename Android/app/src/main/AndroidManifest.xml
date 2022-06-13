@@ -11,7 +11,6 @@
 
 
     <application
-        android:screenOrientation="portrait"
         android:name=".appplication.ScheduleApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,15 +19,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Libsked">
         <activity
+            android:screenOrientation="nosensor"
             android:name=".RoomSchedule"
             android:exported="false" />
         <activity
+            android:screenOrientation="nosensor"
             android:name=".authentication.ForgotPassword"
             android:exported="false" />
         <activity
+            android:screenOrientation="nosensor"
             android:name=".authentication.Register"
             android:exported="false" />
         <activity
+            android:screenOrientation="nosensor"
             android:name=".authentication.Login"
             android:exported="true">
             <intent-filter>
@@ -38,6 +41,7 @@
             </intent-filter>
         </activity>
         <activity
+            android:screenOrientation="nosensor"
             android:name=".MainActivity"
             android:exported="false">
         </activity>

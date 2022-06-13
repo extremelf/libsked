@@ -59,8 +59,8 @@ class QrCodeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_qr_code, container, false)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -100,7 +100,7 @@ class QrCodeFragment : Fragment() {
             decodeCallback = DecodeCallback {
                 requireActivity().runOnUiThread {
                     roomViewModel.roomExists(it.text.toInt())
-                        .observe(viewLifecycleOwner, Observer { exists ->
+                        .observe(requireActivity(), Observer { exists ->
                             if (exists) {
                                 changeToRoomFragment(it.text.toInt())
                             } else {
@@ -149,6 +149,8 @@ class QrCodeFragment : Fragment() {
             bundle.putInt("RoomNumber", roomNumber)
             fragment.arguments = bundle
 
+            fragment.onDestroyView()
+            fragment.onDestroy()
             //fragment change
             fragmentTransaction.replace(R.id.frame_layout, fragment)
             fragmentTransaction.addToBackStack(null)
@@ -164,6 +166,8 @@ class QrCodeFragment : Fragment() {
             fragment.arguments = bundle
 
             //fragment change
+            fragment.onDestroyView()
+            fragment.onDestroy()
             fragmentTransaction.replace(R.id.frame_layout, fragment)
             fragmentTransaction.addToBackStack(null)
             fragmentTransaction.commit()
