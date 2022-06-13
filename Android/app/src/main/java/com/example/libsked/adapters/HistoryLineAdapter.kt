@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.history_line.view.*
 import kotlinx.android.synthetic.main.schedule_line.view.*
 import java.sql.Timestamp
 import java.util.*
+import kotlin.math.roundToLong
 
 
 class HistoryLineAdapter : RecyclerView.Adapter<HistoryViewHolder>() {
@@ -48,7 +49,7 @@ class HistoryLineAdapter : RecyclerView.Adapter<HistoryViewHolder>() {
                     flag.text = "Schedule booked"
                 }
                 roomID.text ="Room: " + scheduleList[position].roomId.toString()
-                val auxDuration = (scheduleList[position].end - scheduleList[position].start)/3.6e+6
+                val auxDuration = ((scheduleList[position].end - scheduleList[position].start)/3.6e+6).roundToLong()
 
 
                 duration.text = "Reservation duration: " + auxDuration.toString() + "Hours"
