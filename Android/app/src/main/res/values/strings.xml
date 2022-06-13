@@ -35,7 +35,7 @@
     <string name="make_a_reservation">Make a reservation</string>
     <string name="select_start_time">Select start time</string>
     <string name="select_end_time">Select end time</string>
-    <string name="appointment">Appointment</string>
+    <string name="appointment">Appointments</string>
     <string name="apply">Apply</string>
     <string name="location_title">Location</string>
     <string name="link_to_maps">https://goo.gl/maps/1bV8xV9vMENBbZbN6</string>
