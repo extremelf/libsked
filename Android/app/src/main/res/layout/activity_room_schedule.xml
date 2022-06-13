@@ -86,8 +86,8 @@
             android:layout_below="@id/info_room"
             android:gravity="center"
             android:text="@string/occupation"
-            android:textSize="30sp"
             android:textColor="#FF9800"
+            android:textSize="30sp"
             android:textStyle="bold"
 
 
@@ -103,22 +103,25 @@
 
 
         <RelativeLayout
+            android:id="@+id/reservationLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/schedule_recycler"
             android:layout_margin="30dp"
+            android:paddingBottom="10dp"
             android:background="@drawable/square"
-            android:backgroundTint="#FF9800"
-            >
+            android:backgroundTint="#FF9800">
 
             <TextView
                 android:id="@+id/reservationTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
                 android:background="@drawable/edit_text"
                 android:padding="5dp"
-                android:layout_marginTop="15dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:text="@string/make_a_reservation"
                 android:textColor="@color/white"
                 android:textSize="30sp" />
@@ -128,16 +131,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/reservationTitle"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
-                android:textColor="@color/black"
                 android:text="@string/select_start_time"
-                android:layout_marginStart="10dp"/>
+                android:textColor="@color/black" />
 
             <Spinner
+                android:id="@+id/spinnerStart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/startTv"
-                android:layout_alignParentStart="true" />
+                android:layout_marginStart="10dp"/>
 
             <TextView
                 android:id="@+id/endTv"
@@ -146,17 +150,30 @@
                 android:layout_below="@id/reservationTitle"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="20dp"
-                android:text="@string/select_end_time"
                 android:layout_marginEnd="10dp"
-                android:textColor="@color/black"/>
+                android:text="@string/select_end_time"
+                android:textColor="@color/black" />
 
             <Spinner
+                android:id="@+id/spinnerEnd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/startTv"
                 android:layout_alignParentEnd="true" />
-        </RelativeLayout>
 
+            <Button
+                android:id="@+id/reservationButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/spinnerEnd"
+                android:layout_centerHorizontal="true"
+                android:backgroundTint="@color/empty_green"
+                android:text="Confirm"
+                android:textColor="@color/white"
+                />
+
+
+        </RelativeLayout>
 
     </RelativeLayout>
 </ScrollView>

@@ -16,9 +16,9 @@
     <string name="room_1">Room 1</string>
     <string name="submit">Submit</string>
     <string name="logout">Logout</string>
-    <string name="name">Name:</string>
-    <string name="number">Number:</string>
-    <string name="email">Email:</string>
+    <string name="name">Name: %1$s</string>
+    <string name="number">Number: %1$s</string>
+    <string name="email">Email: %1$s</string>
     <string name="sign_in">Sign In</string>
     <string name="log_in">Log In</string>
     <string name="forgot_password">Forgot Password</string>
@@ -35,4 +35,10 @@
     <string name="make_a_reservation">Make a reservation</string>
     <string name="select_start_time">Select start time</string>
     <string name="select_end_time">Select end time</string>
+    <string name="appointment">Appointment</string>
+    <string name="apply">Apply</string>
+    <string name="location_title">Location</string>
+    <string name="link_to_maps">https://goo.gl/maps/1bV8xV9vMENBbZbN6</string>
+    <string name="simple_image_of_the_library">Simple image of the library</string>
+    <string name="active_reservation">One active reservation allowed</string>
 </resources>

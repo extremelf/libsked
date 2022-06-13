@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll_view_library"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LibraryInfo">
+
+    <RelativeLayout
+        android:id="@+id/library_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/title_library"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:background="@drawable/square"
+            android:backgroundTint="#FF9800"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="@string/biblioteca_barbosa_romero_da_escola_superior_de_tecnologia_e_gest_o_ipvc"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="normal"
+
+            />
+        <!--
+
+            <LinearLayout
+                android:id="@+id/image_viewer"
+                android:layout_below="@id/title_library"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                >
+
+                <ImageButton
+                    android:id="@+id/btn_previous"
+                    android:layout_width="50dp"
+                    android:layout_height="80dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_baseline_navigate_before_24"
+                    />
+
+                <ImageSwitcher
+                    android:id="@+id/image_switcher"
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+
+                    />
+
+                <ImageButton
+                    android:id="@+id/btn_next"
+                    android:layout_width="50dp"
+                    android:layout_height="80dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_baseline_navigate_next_24"
+                    />
+
+
+
+
+            </LinearLayout>
+        -->
+
+        <ImageView
+            android:id="@+id/image_one"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_below="@id/title_library"
+            android:layout_margin="15dp"
+            android:src="@drawable/kkkkllklkkkkkkkk"
+            android:contentDescription="@string/simple_image_of_the_library"/>
+
+        <TextView
+            android:id="@+id/location_library"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image_one"
+            android:gravity="center"
+            android:text="@string/location_title"
+            android:textColor="@color/colorPrimary"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/link_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/location_library"
+            android:layout_margin="20dp"
+            android:autoLink="web"
+            android:gravity="center"
+            android:text="@string/link_to_maps"
+            android:textColor="#1F69FF" />
+
+        <RelativeLayout
+            android:id="@+id/info_library_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/link_location"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="30dp"
+            android:background="@drawable/square"
+            android:backgroundTint="#FF9800">
+
+
+            <TextView
+                android:id="@+id/room_number_library"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="@string/room_x"
+                android:textColor="@color/black"
+                android:textStyle="normal"
+                app:drawableTopCompat="@drawable/ic_baseline_location_on_24"
+
+                />
+
+            <TextView
+                android:id="@+id/room_tables_library"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/room_number_library"
+                android:layout_marginStart="15dp"
+                android:layout_marginBottom="15dp"
+                android:text="@string/table"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/room_chairs_library"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/room_tables_library"
+                android:layout_marginStart="15dp"
+                android:layout_marginBottom="15dp"
+                android:text="@string/chairs"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/room_sockets_sockets"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/room_chairs_library"
+                android:layout_marginStart="15dp"
+                android:layout_marginBottom="15dp"
+                android:text="@string/sockets"
+                android:textColor="@color/black" />
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/show_occupation_library"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/info_library_info"
+            android:gravity="center"
+            android:text="@string/occupation"
+            android:textColor="#FF9800"
+            android:textSize="30sp"
+            android:textStyle="bold"
+
+
+            />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/schedule_recycler_library"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/show_occupation_library"
+            android:layout_marginHorizontal="15dp" />
+
+
+    </RelativeLayout>
+
+</ScrollView>
