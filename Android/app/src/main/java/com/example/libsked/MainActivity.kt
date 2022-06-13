@@ -3,6 +3,8 @@ package com.example.libsked
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
 import androidx.fragment.app.Fragment
 import com.example.libsked.appplication.ScheduleApplication
 import com.example.libsked.fragments.AccountFragment
@@ -23,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         setContentView(R.layout.activity_main)
         replaceFragment(mainFragment)
 

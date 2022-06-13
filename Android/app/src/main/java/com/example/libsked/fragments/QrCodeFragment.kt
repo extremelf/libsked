@@ -11,6 +11,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import com.budiyev.android.codescanner.AutoFocusMode
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.DecodeCallback
@@ -97,11 +98,20 @@ class QrCodeFragment : Fragment() {
             isFlashEnabled = false
 
             decodeCallback = DecodeCallback {
-                val exists = roomViewModel.roomExists(roomNumber = it.text.toInt())
-
-                if(exists.value!!){
-                    Toast.makeText(requireContext(), "Exists", Toast.LENGTH_SHORT).show()
+                requireActivity().runOnUiThread {
+                    roomViewModel.roomExists(it.text.toInt())
+                        .observe(viewLifecycleOwner, Observer { exists ->
+                            if (exists) {
+                                changeToRoomFragment(it.text.toInt())
+                            } else {
+                                Toast.makeText(requireContext(), "Invalid room number", Toast.LENGTH_SHORT).show()
+                            }
+                        })
                 }
+
+
+
+
             }
 
             errorCallback = ErrorCallback {
@@ -127,6 +137,40 @@ class QrCodeFragment : Fragment() {
                 }
             }
         }
+
+    private fun changeToRoomFragment(roomNumber: Int) {
+        if(roomNumber != 99){
+            val fragment = RoomInfoFragment()
+            val bundle = Bundle()
+            val fragmentManager = parentFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+
+            //data to be sent to the new fragment
+            bundle.putInt("RoomNumber", roomNumber)
+            fragment.arguments = bundle
+
+            //fragment change
+            fragmentTransaction.replace(R.id.frame_layout, fragment)
+            fragmentTransaction.addToBackStack(null)
+            fragmentTransaction.commit()
+        } else {
+            val fragment = LibraryInfoFragment()
+            val bundle = Bundle()
+            val fragmentManager = parentFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+
+            //data to be sent to the new fragment
+            bundle.putInt("RoomNumber", roomNumber)
+            fragment.arguments = bundle
+
+            //fragment change
+            fragmentTransaction.replace(R.id.frame_layout, fragment)
+            fragmentTransaction.addToBackStack(null)
+            fragmentTransaction.commit()
+        }
+
+
+    }
 
 
     companion object {
