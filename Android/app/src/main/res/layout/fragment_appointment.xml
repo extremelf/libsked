@@ -4,22 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Appointments"
-    android:background="#F2A900">
+    tools:context=".fragments.AppointmentFragment"
+    android:background="#FFFFFF">
+
+
+
+    <LinearLayout
+        android:id="@+id/ll0"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:text="@string/appointment"
+            android:textColor="#FF9800"
+            android:textStyle="italic|bold"
+            android:textSize="30sp">
+        </TextView>
+
+    </LinearLayout>
 
 
     <LinearLayout
         android:id="@+id/ll"
-        android:layout_marginTop="48dp"
-        android:background="@drawable/bg_calen"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/shape"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/ll0">
 
         <CalendarView
             android:id="@+id/calendar"
             android:layout_width="wrap_content"
             android:layout_height="300dp">
+
+
         </CalendarView>
 
 
@@ -34,8 +57,10 @@
         android:layout_below="@+id/ll"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:background="#007AFC"
-        android:text="Apply" />
+        android:backgroundTint="#FF9800"
+        android:text="@string/apply" />
+
+
 
     <LinearLayout
         android:layout_width="300dp"
@@ -45,16 +70,27 @@
         android:layout_marginVertical="30dp"
         android:background="#FFF">
 
+
         <LinearLayout
             android:id="@+id/ll2"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="26dp"
             android:layout_marginTop="20dp"
-            android:background="#F2A900"
+            android:background="#F4F0F0"
             android:paddingTop="10dp">
 
-            
+            <ScrollView
+                android:id="@+id/time_schedule"
+                android:layout_width="match_parent"
+                android:layout_height="145dp"
+                android:layout_below="@id/show_occupation"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="100dp">
 
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -63,7 +99,7 @@
                     android:layout_height="wrap_content" />
 
 
-
+            </ScrollView>
 
         </LinearLayout>
 
