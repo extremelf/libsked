@@ -1,5 +1,6 @@
 package com.example.libsked.adapters
 
+import android.R.attr.data
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
@@ -10,13 +11,11 @@ import com.example.libsked.model.Schedule
 import kotlinx.android.synthetic.main.history_line.view.*
 import kotlinx.android.synthetic.main.schedule_line.view.*
 import java.sql.Timestamp
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.time.Duration.Companion.hours
+
 
 class HistoryLineAdapter : RecyclerView.Adapter<HistoryViewHolder>() {
-    private lateinit var scheduleList: List<Schedule>
+    private lateinit var scheduleList: MutableList<Schedule>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
         return HistoryViewHolder(
             LayoutInflater
@@ -48,13 +47,13 @@ class HistoryLineAdapter : RecyclerView.Adapter<HistoryViewHolder>() {
                 } else {
                     flag.text = "Schedule booked"
                 }
-                roomID.text = scheduleList[position].roomId.toString()
-                val auxDuration = (scheduleList[position].end - scheduleList[position].start)
+                roomID.text ="Room: " + scheduleList[position].roomId.toString()
+                val auxDuration = (scheduleList[position].end - scheduleList[position].start)/3.6e+6
 
-                val auxDuration2 = convertFromDuration(auxDuration)
-                duration.text = auxDuration2.toString()
-                startTime.text = Timestamp(scheduleList[position].start).hours.toString()
-                endTime.text = Timestamp(scheduleList[position].end).hours.toString()
+
+                duration.text = "Reservation duration: " + auxDuration.toString() + "Hours"
+                startTime.text ="Start: "+ Timestamp(scheduleList[position].start).hours.toString()
+                endTime.text = "End: " + Timestamp(scheduleList[position].end).hours.toString()
             }
         }
 
@@ -71,18 +70,16 @@ class HistoryLineAdapter : RecyclerView.Adapter<HistoryViewHolder>() {
     }
 
     fun changeList(scheduleList: List<Schedule>) {
-        this.scheduleList = scheduleList
+        this.scheduleList = scheduleList.toMutableList()
         notifyDataSetChanged()
     }
 
-    fun convertFromDuration(timeInSeconds: Long): TimeInHours {
-        var time = timeInSeconds
-        val hours = time / 3600
-        time %= 3600
-        val minutes = time / 60
-        time %= 60
-        val seconds = time
-        return TimeInHours(hours.toInt(), minutes.toInt(), seconds.toInt())
+
+
+    fun clear(){
+        val size: Int = scheduleList.size
+        scheduleList.clear()
+        notifyItemRangeRemoved(0, size)
     }
 }
 
