@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Appointments"
+    tools:context=".fragments.AppointmentFragment"
     android:background="#FFFFFF">
 
 
@@ -94,12 +94,34 @@
 
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/schedule_recycler"
+                    android:id="@+id/history_recycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
 
             </ScrollView>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll3"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="160dp"
+            android:background="#F2A900"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:id="@+id/tv2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="100dp"
+                android:paddingBottom="10dp"
+                android:text="Room 2">
+
+            </TextView>
 
         </LinearLayout>
 
