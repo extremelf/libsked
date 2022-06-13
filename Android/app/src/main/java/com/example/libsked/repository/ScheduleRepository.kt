@@ -18,6 +18,8 @@ class ScheduleRepository(
     fun getRoomScheduleOfDay(roomId: Int): Flow<List<Schedule>> =
         scheduleDao.getDayScheduleOfRoom(roomId)
 
+    fun getDayScheduleOfLibrary(): Flow<List<Schedule>> = scheduleDao.getDayScheduleOfLibrary()
+
     fun getActiveReservations(personId: String, currentTime: Long): Flow<List<Schedule>> =
         scheduleDao.getActiveReservation(personId, currentTime)
 
@@ -31,6 +33,8 @@ class ScheduleRepository(
     fun getRoom(id: Int): Flow<RoomTable> = roomDao.getRoom(id)
 
     fun getRooms(): Flow<List<Int>> = roomDao.getRoomNumbers()
+
+    fun roomExists(roomNumber: Int): Flow<Boolean> = roomDao.roomExists(roomNumber)
 
     fun getScheduleOnXDay(startOfday: Long,endOfday: Long, userID: String):Flow<List<Schedule>> = scheduleDao.getSchedulexDay(startOfday,endOfday,userID)
 

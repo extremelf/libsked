@@ -13,6 +13,9 @@ interface RoomDao {
     @Query("SELECT room_number FROM room")
     fun getRoomNumbers(): Flow<List<Int>>
 
+    @Query("SELECT EXISTS(SELECT * FROM room WHERE room_number = :roomNumber)")
+    fun roomExists(roomNumber: Int): Flow<Boolean>
+
     @Insert(onConflict = IGNORE)
     suspend fun insert(room: RoomTable): Long
 

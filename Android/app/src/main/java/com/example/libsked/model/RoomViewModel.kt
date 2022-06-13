@@ -9,6 +9,7 @@ import com.example.libsked.repository.ScheduleRepository
 class RoomViewModel(private val repository: ScheduleRepository): ViewModel() {
     fun getRoomSchedule(id: Int): LiveData<List<Schedule>> = repository.getRoomSchedule(id).asLiveData()
     fun getRoomInfo(id: Int): LiveData<RoomTable> = repository.getRoom(id).asLiveData()
+    fun roomExists(roomNumber: Int): LiveData<Boolean> = repository.roomExists(roomNumber).asLiveData()
 }
 
 class RoomViewModelFactory(private val repository: ScheduleRepository): ViewModelProvider.Factory{
