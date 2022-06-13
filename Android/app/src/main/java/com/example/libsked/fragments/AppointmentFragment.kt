@@ -82,7 +82,6 @@ class AppointmentFragment : Fragment() {
         endOfDay.hours = 23
         endOfDay.minutes = 59
 
-        btn_apply.text = endOfDay.hours.toString()
 
         scheduleViewModel.getScheduleOnXDay(startOfDay.time, endOfDay.time, uid.toString())
             .observe(viewLifecycleOwner, Observer { item ->
@@ -105,8 +104,7 @@ class AppointmentFragment : Fragment() {
                 endOfDay = Timestamp(auxDate)
                 endOfDay.hours = 23
                 endOfDay.minutes = 59
-
-                btn_apply.text = endOfDay.hours.toString()
+                
 
                 historyAdapter.clear()
 
