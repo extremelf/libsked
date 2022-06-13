@@ -97,22 +97,15 @@ abstract class ScheduleRoomDatabase : RoomDatabase() {
             )
             roomDao.insert(room)
 
-            val schedule = Schedule(
-                creation_timestamp = Calendar.getInstance().timeInMillis,
-                roomId = room1Id.toInt(),
-                start = Timestamp.valueOf("2022-5-28 10:30:0.0").time,
-                end = Timestamp.valueOf("2022-5-28 18:0:0.0").time
+            room = RoomTable(
+                id = 99,
+                roomNumber = 99,
+                chairsNumber = 100,
+                socketsNumber = 300,
+                tablesNumber = 40,
+                description = "Library"
             )
-            scheduleDao.insert(schedule)
-
-            val schedule2 = Schedule(
-                creation_timestamp = Calendar.getInstance().timeInMillis,
-                roomId = room2Id.toInt(),
-                start = Timestamp.valueOf("2022-5-28 10:30:0.0").time,
-                end = Timestamp.valueOf("2022-5-28 18:0:0.0").time
-            )
-
-            scheduleDao.insert(schedule2)
+            roomDao.insert(room)
         }
     }
 
