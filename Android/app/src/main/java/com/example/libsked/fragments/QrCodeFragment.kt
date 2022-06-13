@@ -11,13 +11,12 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.budiyev.android.codescanner.AutoFocusMode
 import com.budiyev.android.codescanner.CodeScanner
-import com.budiyev.android.codescanner.CodeScannerView
 import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
 import com.budiyev.android.codescanner.ScanMode
 import com.example.libsked.R
 import kotlinx.android.synthetic.main.fragment_qr_code.*
-import java.util.jar.Manifest
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -68,38 +67,36 @@ class QrCodeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if (::codeScanner.isInitialized){
-            codeScanner?.startPreview()
-        }
+        codeScanner.startPreview()
     }
 
     override fun onPause() {
+        codeScanner.releaseResources()
         super.onPause()
-        if (::codeScanner.isInitialized){
-            codeScanner?.releaseResources()
-        }
     }
 
     private fun startScanning(){
 
         codeScanner = CodeScanner(requireContext(), scanner_view)
-        codeScanner.camera = CodeScanner.CAMERA_BACK
-        codeScanner.formats = CodeScanner.ALL_FORMATS
+        codeScanner.apply {
 
-        codeScanner.autoFocusMode = AutoFocusMode.SAFE
-        codeScanner.scanMode = ScanMode.SINGLE
-        codeScanner.isAutoFocusEnabled = true
-        codeScanner.isFlashEnabled = false
+            camera = CodeScanner.CAMERA_BACK
+            formats = CodeScanner.ALL_FORMATS
+            autoFocusMode = AutoFocusMode.SAFE
+            scanMode = ScanMode.CONTINUOUS
+            isAutoFocusEnabled = true
+            isFlashEnabled = false
 
-        codeScanner.decodeCallback = DecodeCallback {
-            requireActivity().runOnUiThread {
-                Toast.makeText(requireContext(), "Scan Result: ${it.text}", Toast.LENGTH_LONG).show()
+            decodeCallback = DecodeCallback {
+                requireActivity().runOnUiThread {
+                    Toast.makeText(requireContext(), "Scan Result: ${it.text}", Toast.LENGTH_LONG).show()
+                }
             }
-        }
 
-        codeScanner.errorCallback = ErrorCallback {
-            requireActivity().runOnUiThread {
-                Toast.makeText(requireContext(), "Camera Initialization error: ${it.message}", Toast.LENGTH_SHORT).show()
+            errorCallback = ErrorCallback {
+                requireActivity().runOnUiThread {
+                    Toast.makeText(requireContext(), "Camera Initialization error: ${it.message}", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 

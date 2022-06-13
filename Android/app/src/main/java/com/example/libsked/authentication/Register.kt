@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import com.example.libsked.R
 import com.example.libsked.model.Users
@@ -26,7 +27,7 @@ class Register : AppCompatActivity() {
     private lateinit var Pass: EditText
     lateinit var ConfPass: EditText
     private lateinit var btnRegister: Button
-    //lateinit var RedirectLogin: TextView
+    lateinit var BackButton: ImageButton
 
     private lateinit var auth: FirebaseAuth
 
@@ -41,7 +42,7 @@ class Register : AppCompatActivity() {
         Pass = findViewById(R.id.et_password)
         ConfPass = findViewById(R.id.et_passwordRepeat)
         btnRegister = findViewById(R.id.btn_register)
-        //RedirectLogin = findViewById(R.id.GoToLogin)
+        BackButton = findViewById(R.id.back_button)
 
         // Inicializar Auth
         auth = Firebase.auth
@@ -70,6 +71,11 @@ class Register : AppCompatActivity() {
         if (email.isBlank() || name.isBlank() || pass.isBlank() || confirmPassword.isBlank()) {
             Toast.makeText(this, "Fields can't be blank", Toast.LENGTH_SHORT).show()
             return
+        }
+
+        // Verificar se tem 6 caracteres
+        if (pass.length < 6){
+            Toast.makeText(this, "Password Must Be 6 Characters Minimum!", Toast.LENGTH_SHORT).show()
         }
 
         // Verificar se as Passwords Coincidem
