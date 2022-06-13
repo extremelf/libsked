@@ -34,6 +34,9 @@ interface ScheduleDao {
     @Query("SELECT * FROM room_schedule WHERE person_id = :person_id AND start <= :currentTime AND `end` >= :currentTime")
     fun getActiveReservation(person_id: String, currentTime: Long): Flow<List<Schedule>>
 
+    @Query("UPDATE room_schedule set `end` = :newEnd WHERE id = :reservationId")
+    suspend fun updateEndOfReservation(newEnd: Long, reservationId: Int)
+
     @Query("SELECT COUNT(*) FROM room_schedule WHERE person_id = :person_id AND" +
             " start > strftime('%s', datetime('now', '+1 hour'))*1000 AND" +
             " `end` < strftime('%s', datetime('now', '+1 hour', 'start of day', '+1 day', '-1 second'))*1000")

@@ -28,6 +28,7 @@ class RoomInfoFragment : Fragment() {
     private var roomNumber: Int? = null
     private lateinit var scheduleAdapter: ScheduleLineAdapater
     private lateinit var availablehours: MutableList<ScheduleInfo>
+    private lateinit var sharedPref: SharedPreferences
     private val roomViewModel: RoomViewModel by activityViewModels {
         RoomViewModelFactory((requireActivity().application as ScheduleApplication).repository)
     }
@@ -52,10 +53,11 @@ class RoomInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val sharedPref: SharedPreferences =
+        sharedPref =
             requireContext().getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
-
         val uid = sharedPref.getString("USERID", "")
+
+
 
         ("Room: $roomNumber").also { room_number.text = it }
         scheduleAdapter = ScheduleLineAdapater()
@@ -71,83 +73,75 @@ class RoomInfoFragment : Fragment() {
                     populateScheduleInfo(item)
                     scheduleAdapter.changeList(availablehours)
                     spinnerStart.adapter = spinnerAdapter(availablehours)
+                    uid?.let { uid ->
+                        scheduleViewModel.getActiveReservations(uid, Calendar.getInstance().timeInMillis)
+                            .observe(viewLifecycleOwner, Observer {
+                                if (it.isNotEmpty()) {
+                                    val canExtend = !hasReservationAfter(it[0])
+                                    val currentTimeStamp = Timestamp(Calendar.getInstance().timeInMillis)
+                                    if ((it[0].end - currentTimeStamp.time) <= 1800000 && canExtend) {
+                                        reservationTitle.text = resources.getText(R.string.extend_reservation)
+                                        reservationButton.setOnClickListener { view ->
+                                            extendReservationListener(it[0])
+                                        }
+                                    } else {
+                                        reservationTitle.text = resources.getText(R.string.active_reservation)
+                                        reservationButton.isEnabled = false
+                                    }
+                                    startTv.visibility = View.GONE
+                                    startTv.isEnabled = false
+                                    endTv.visibility = View.GONE
+                                    endTv.isEnabled = false
+                                    spinnerStart.visibility = View.GONE
+                                    spinnerStart.isEnabled = false
+                                    spinnerEnd.visibility = View.GONE
+                                    spinnerEnd.isEnabled = false
+                                    reservationButton.visibility = View.GONE
+
+                                } else {
+                                    reservationTitle.text = resources.getText(R.string.make_a_reservation)
+                                    spinnerStart.isEnabled = true
+                                    spinnerEnd.isEnabled = true
+                                    reservationButton.isEnabled = true
+                                }
+                            })
+
+                        scheduleViewModel.getNotConsumedReservations(uid).observe(viewLifecycleOwner, Observer {
+                            if (it >= 1) {
+                                reservationTitle.text = resources.getText(R.string.multiple_reservation)
+                                spinnerStart.isEnabled = false
+                                spinnerEnd.isEnabled = false
+                                reservationButton.isEnabled = false
+                            } else {
+                                spinnerStart.isEnabled = true
+                                spinnerEnd.isEnabled = true
+                                reservationButton.isEnabled = true
+                            }
+                        })
+                    }
                 })
         }
+
+        reservationButton.setOnClickListener(this::defaultReservationListener)
+
         roomNumber?.let {
             roomViewModel.getRoomInfo(it).observe(viewLifecycleOwner, Observer { item ->
                 populateInfo(item)
             })
         }
 
-        uid?.let { uid ->
-            scheduleViewModel.getActiveReservations(uid, Calendar.getInstance().timeInMillis)
-                .observe(viewLifecycleOwner, Observer {
-                    if (!it.isEmpty()) {
-                        reservationTitle.text = resources.getText(R.string.active_reservation)
-                        spinnerStart.isEnabled = false
-                        spinnerEnd.isEnabled = false
-                        reservationButton.isEnabled = false
-                    } else {
-                        reservationTitle.text = resources.getText(R.string.make_a_reservation)
-                        spinnerStart.isEnabled = true
-                        spinnerEnd.isEnabled = true
-                        reservationButton.isEnabled = true
-                    }
-                })
 
-            scheduleViewModel.getNotConsumedReservations(uid).observe(viewLifecycleOwner, Observer {
-                if (it >= 1) {
-                    reservationTitle.text = resources.getText(R.string.multiple_reservation)
-                    spinnerStart.isEnabled = false
-                    spinnerEnd.isEnabled = false
-                    reservationButton.isEnabled = false
-                } else {
-                    reservationTitle.text = resources.getText(R.string.make_a_reservation)
-                    spinnerStart.isEnabled = true
-                    spinnerEnd.isEnabled = true
-                    reservationButton.isEnabled = true
-                }
-            })
-        }
 
-        reservationButton.setOnClickListener {
-            val startTimestamp = Timestamp(Calendar.getInstance().timeInMillis)
-            val endTimestamp = Timestamp(Calendar.getInstance().timeInMillis)
-            val spinnerEndTime = spinnerEnd.selectedItem.toString().split(":")
-            val spinnerStartTime = spinnerStart.selectedItem.toString().split(":")
 
-            endTimestamp.hours = spinnerEndTime[0].toInt()
-            endTimestamp.minutes = spinnerEndTime[1].toInt()
-            endTimestamp.seconds = 0
-            endTimestamp.nanos = 0
-
-            startTimestamp.hours = spinnerStartTime[0].toInt()
-            startTimestamp.minutes = spinnerStartTime[1].toInt()
-            startTimestamp.seconds = 0
-            startTimestamp.nanos = 0
-
-            uid?.let { it1 ->
-                roomNumber?.let { it2 ->
-                    Schedule(
-                        creation_timestamp = Calendar.getInstance().timeInMillis,
-                        personId = it1,
-                        roomId = it2,
-                        start = startTimestamp.time,
-                        end = endTimestamp.time
-                    )
-                }
-            }
-                ?.let { it2 -> scheduleViewModel.insert(it2) }
-        }
 
         spinnerStart.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
                 val hours: MutableList<ScheduleInfo> = mutableListOf()
                 var occurrence = 0
                 var initialHour = 0
-                for (hour in 0 until availablehours.size){
+                for (hour in 0 until availablehours.size) {
                     val separatedInfo = spinnerStart.selectedItem.toString().split(":")
-                    if(availablehours[hour].hour == separatedInfo[0].toInt() && availablehours[hour].minute == separatedInfo[1].toInt()){
+                    if (availablehours[hour].hour == separatedInfo[0].toInt() && availablehours[hour].minute == separatedInfo[1].toInt()) {
                         initialHour = hour
                     }
                 }
@@ -183,6 +177,43 @@ class RoomInfoFragment : Fragment() {
         }
     }
 
+    private fun extendReservationListener(activeSchedule: Schedule) {
+        scheduleViewModel.updateEndOfReservation(activeSchedule.end + 1800000, activeSchedule.id)
+
+    }
+
+    private fun defaultReservationListener(view: View) {
+        val uid = sharedPref.getString("USERID", "")
+
+        val startTimestamp = Timestamp(Calendar.getInstance().timeInMillis)
+        val endTimestamp = Timestamp(Calendar.getInstance().timeInMillis)
+        val spinnerEndTime = spinnerEnd.selectedItem.toString().split(":")
+        val spinnerStartTime = spinnerStart.selectedItem.toString().split(":")
+
+        endTimestamp.hours = spinnerEndTime[0].toInt()
+        endTimestamp.minutes = spinnerEndTime[1].toInt()
+        endTimestamp.seconds = 0
+        endTimestamp.nanos = 0
+
+        startTimestamp.hours = spinnerStartTime[0].toInt()
+        startTimestamp.minutes = spinnerStartTime[1].toInt()
+        startTimestamp.seconds = 0
+        startTimestamp.nanos = 0
+
+
+        roomNumber?.let { it2 ->
+            uid?.let {
+                Schedule(
+                    creation_timestamp = Calendar.getInstance().timeInMillis,
+                    personId = it,
+                    roomId = it2,
+                    start = startTimestamp.time,
+                    end = endTimestamp.time
+                )
+            }
+        }?.let { it2 -> scheduleViewModel.insert(it2) }
+    }
+
 
     private fun populateScheduleInfo(scheduleList: List<Schedule>) {
         val hoursOfDay = (7..32).toList()
@@ -213,6 +244,18 @@ class RoomInfoFragment : Fragment() {
         availablehours = hours
     }
 
+    private fun hasReservationAfter(activeReservation: Schedule): Boolean {
+        val activeReservationTimestamp = Timestamp(activeReservation.end)
+        for (hourPos in 0 until availablehours.size) {
+            if (availablehours[hourPos].hour == activeReservationTimestamp.hours && availablehours[hourPos].minute == activeReservationTimestamp.minutes) {
+                if ((hourPos + 1) < availablehours.size) {
+                    return availablehours[hourPos + 1].isOccupied
+                }
+            }
+        }
+        return false
+    }
+
     private fun spinnerAdapter(
         values: MutableList<ScheduleInfo>,
         start: Boolean = true
@@ -222,10 +265,10 @@ class RoomInfoFragment : Fragment() {
 
         for (itemPos in 0 until if (start) values.size - 1 else values.size) {
             if ((values[itemPos].hour >= currentTime.hours && !values[itemPos].isOccupied) || !start) {
-                if ((itemPos + 1) <= values.size) {
-                    if (values[itemPos].hour == currentTime.hours && values[itemPos + 1].minute > currentTime.minutes || !start) {
+                if ((itemPos + 1) < values.size) {
+                    if (values[itemPos].hour == currentTime.hours && values[itemPos].minute < currentTime.minutes && currentTime.minutes < (if (values[itemPos + 1].minute == 0) 59 else values[itemPos + 1].minute) || !start) {
                         availableStarts.add("${values[itemPos].hour}:${if (values[itemPos].minute == 0) "00" else values[itemPos].minute}")
-                    } else {
+                    } else if (values[itemPos].hour != currentTime.hours) {
                         availableStarts.add("${values[itemPos].hour}:${if (values[itemPos].minute == 0) "00" else values[itemPos].minute}")
                     }
                 } else {
