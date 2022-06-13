@@ -34,6 +34,8 @@ class ScheduleRepository(
 
     fun getRooms(): Flow<List<Int>> = roomDao.getRoomNumbers()
 
+    fun roomExists(roomNumber: Int): Flow<Boolean> = roomDao.roomExists(roomNumber)
+
     fun getScheduleOnXDay(startOfday: Long,endOfday: Long, userID: String):Flow<List<Schedule>> = scheduleDao.getSchedulexDay(startOfday,endOfday,userID)
 
     /*fun isRoomOccupied(roomId: Int): Boolean{

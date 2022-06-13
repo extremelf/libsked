@@ -9,13 +9,19 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LiveData
 import com.budiyev.android.codescanner.AutoFocusMode
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
 import com.budiyev.android.codescanner.ScanMode
 import com.example.libsked.R
+import com.example.libsked.appplication.ScheduleApplication
+import com.example.libsked.model.RoomViewModel
+import com.example.libsked.model.RoomViewModelFactory
 import kotlinx.android.synthetic.main.fragment_qr_code.*
+import java.util.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -34,6 +40,9 @@ class QrCodeFragment : Fragment() {
     private var param2: String? = null
 
     private lateinit var codeScanner: CodeScanner
+    private val roomViewModel: RoomViewModel by activityViewModels {
+        RoomViewModelFactory((requireActivity().application as ScheduleApplication).repository)
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,8 +97,10 @@ class QrCodeFragment : Fragment() {
             isFlashEnabled = false
 
             decodeCallback = DecodeCallback {
-                requireActivity().runOnUiThread {
-                    Toast.makeText(requireContext(), "Scan Result: ${it.text}", Toast.LENGTH_LONG).show()
+                val exists = roomViewModel.roomExists(roomNumber = it.text.toInt())
+
+                if(exists.value!!){
+                    Toast.makeText(requireContext(), "Exists", Toast.LENGTH_SHORT).show()
                 }
             }
 

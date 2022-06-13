@@ -62,8 +62,6 @@ class LibraryInfoFragment: Fragment() {
                 populateInfo(item)
             })
         }
-
-
     }
 
     private fun populateScheduleInfo(scheduleList: List<Schedule>) {
