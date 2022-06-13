@@ -1,5 +1,6 @@
 package com.example.libsked.fragments
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
@@ -12,11 +13,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import com.example.libsked.LibraryInfo
 import com.example.libsked.MainActivity
 import com.example.libsked.R
 import com.example.libsked.appplication.ScheduleApplication
+import com.example.libsked.authentication.Login
 import com.example.libsked.model.ScheduleViewModel
 import com.example.libsked.model.ScheduleViewModelFactory
+import kotlinx.android.synthetic.main.activity_library_info.*
 import java.util.*
 
 
@@ -69,7 +73,8 @@ class MainFragment : Fragment() {
                     val room: TextView = requireView().findViewById<TextView>(viewResId)
                     room.background.setColorFilter(
                         Color.GREEN,
-                        PorterDuff.Mode.SRC_IN)
+                        PorterDuff.Mode.SRC_IN
+                    )
                     room.setOnClickListener {
                         changeToRoomFragment(roomNumber)
                     }
@@ -90,20 +95,38 @@ class MainFragment : Fragment() {
             })
     }
 
-    private fun changeToRoomFragment(roomNumber: Int){
-        val fragment = RoomInfoFragment()
-        val bundle = Bundle()
-        val fragmentManager = parentFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
+    private fun changeToRoomFragment(roomNumber: Int) {
+        if(roomNumber != 99){
+            val fragment = RoomInfoFragment()
+            val bundle = Bundle()
+            val fragmentManager = parentFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
 
-        //data to be sent to the new fragment
-        bundle.putInt("RoomNumber", roomNumber)
-        fragment.arguments = bundle
+            //data to be sent to the new fragment
+            bundle.putInt("RoomNumber", roomNumber)
+            fragment.arguments = bundle
 
-        //fragment change
-        fragmentTransaction.replace(R.id.frame_layout, fragment)
-        fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.commit()
+            //fragment change
+            fragmentTransaction.replace(R.id.frame_layout, fragment)
+            fragmentTransaction.addToBackStack(null)
+            fragmentTransaction.commit()
+        } else {
+            val fragment = LibraryInfoFragment()
+            val bundle = Bundle()
+            val fragmentManager = parentFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+
+            //data to be sent to the new fragment
+            bundle.putInt("RoomNumber", roomNumber)
+            fragment.arguments = bundle
+
+            //fragment change
+            fragmentTransaction.replace(R.id.frame_layout, fragment)
+            fragmentTransaction.addToBackStack(null)
+            fragmentTransaction.commit()
+        }
+
+
     }
 
     companion object {

@@ -81,21 +81,28 @@ class Login : AppCompatActivity() {
         // usando o auth do Firebase
         // Se for com sucesso, mostra um Toast
 
-        auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(this) {
-            if (it.isSuccessful) {
-                Toast.makeText(this, "Successfully Logged In!", Toast.LENGTH_SHORT).show()
-                val id = auth.currentUser?.uid
-                if (id != null) {
-                    saveToSharedPref(id)
-                }
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+        if(email.isNotEmpty() && pass.isNotEmpty()){
+            auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(this) {
+                if (it.isSuccessful) {
+                    Toast.makeText(this, "Successfully Logged In!", Toast.LENGTH_SHORT).show()
+                    val id = auth.currentUser?.uid
+                    if (id != null) {
+                        saveToSharedPref(id)
+                    }
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    progressBar.visibility = View.GONE
+                    // finish() para acabar a atividade
+                    finish()
+                } else
+                    Toast.makeText(this, "Log In failed! ", Toast.LENGTH_SHORT).show()
                 progressBar.visibility = View.GONE
-                // finish() para acabar a atividade
-                finish()
-            } else
-                Toast.makeText(this, "Log In failed! ", Toast.LENGTH_SHORT).show()
-                progressBar.visibility = View.GONE
+            }
+        } else {
+            progressBar.visibility = View.GONE
+            Email.error = "Invalid Email"
+            et1.helperText = "Invalid Email"
+            Pass.error = "Invalid Password"
         }
     }
 

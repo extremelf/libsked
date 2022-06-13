@@ -27,6 +27,9 @@ class ScheduleViewModel(private val repository: ScheduleRepository) : ViewModel(
     fun getRoomScheduleOfDay(roomId: Int): LiveData<List<Schedule>> =
         repository.getRoomScheduleOfDay(roomId).asLiveData()
 
+    fun getDayScheduleOfLibrary(): LiveData<List<Schedule>> =
+        repository.getDayScheduleOfLibrary().asLiveData()
+
     fun getScheduleOnXDay(
         starOfday: Long,
         endOfDay: Long,

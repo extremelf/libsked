@@ -17,7 +17,5 @@ class LibraryInfo : AppCompatActivity() {
         setContentView(R.layout.activity_library_info)
 
 
-
-
     }
 }
